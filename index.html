@@ -701,12 +701,26 @@
                 <!-- Featured Post Container (If Any) -->
                 <div id="featured-blog-container" class="mb-10"></div>
 
-                <!-- Blog Cards Grid (Published Articles Only) -->
-                <div id="public-blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Populated dynamically via JS -->
+                <!-- Blog Loading State -->
+                <div id="blog-loading-state" class="text-center py-16 bg-white/60 rounded-2xl gold-border">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl text-peacock-teal mb-3"></i>
+                    <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">Loading Tarot Insights...</h3>
+                    <p class="text-sm text-deep-teal/70">Fetching published articles from central database...</p>
                 </div>
 
-                <!-- Blog Empty State -->
+                <!-- Blog Error State -->
+                <div id="blog-error-state" class="hidden text-center py-16 bg-white/60 rounded-2xl gold-border">
+                    <i class="fa-solid fa-triangle-exclamation text-4xl text-lotus-coral mb-3"></i>
+                    <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">Notice</h3>
+                    <p class="text-sm text-deep-teal/70">Unable to load articles right now. Please try again shortly.</p>
+                </div>
+
+                <!-- Blog Cards Grid (Published Articles Only) -->
+                <div id="public-blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Populated dynamically via Central DB REST API -->
+                </div>
+
+                <!-- Blog Empty State (Zero Mock Articles!) -->
                 <div id="blog-empty-state" class="hidden text-center py-16 bg-white/60 rounded-2xl gold-border">
                     <i class="fa-solid fa-feather-pointed text-4xl text-peacock-teal/40 mb-3"></i>
                     <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">TAROT INSIGHTS</h3>
@@ -1061,7 +1075,7 @@
                         </tr>
                     </thead>
                     <tbody id="admin-articles-tbody" class="divide-y divide-gold-dust/20">
-                        <!-- Rendered dynamically -->
+                        <!-- Rendered dynamically from Central Database -->
                     </tbody>
                 </table>
             </div>
@@ -1207,7 +1221,7 @@
 
                     <!-- Editor Footer Status & Counts -->
                     <div class="flex items-center justify-between text-[11px] text-deep-teal/60 pt-2 px-1">
-                        <div>WYSIWYG Rich Text Mode</div>
+                        <div>Central Database Connected</div>
                         <div class="flex gap-4">
                             <span>Words: <strong id="editor-word-count" class="text-deep-teal font-mono">0</strong></span>
                             <span>Characters: <strong id="editor-char-count" class="text-deep-teal font-mono">0</strong></span>
@@ -1259,87 +1273,87 @@
 
     <!-- ==================== INTERACTIVE JAVASCRIPT LOGIC ==================== -->
     <script>
-        // --- 1. INITIAL DATA STORE (LOCAL STORAGE PERSISTED BLOG SYSTEM) ---
-        const DEFAULT_ARTICLES = [
-            {
-                id: 'art-1',
-                title: 'Understanding Tarot: A Mirror for Reflection and Clarity',
-                category: 'Tarot Education',
-                status: 'PUBLISHED',
-                date: '2026-08-20',
-                author: 'Priyanshu Dhyani',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop',
-                excerpt: 'Discover how modern intuitive tarot acts as a compassionate psychological mirror, illuminating subtle life patterns.',
-                content: `<p class="text-lg leading-relaxed mb-6 font-normal">Tarot is far more than a mystical practice; it is a structured system of symbolic reflection. When we engage with the cards with open curiosity, we allow our subconscious insights and real feelings to take clear shape.</p>
+        // ==================== SINGLE SHARED CENTRAL DATABASE API ====================
+        // Connects directly to central server REST API & online cloud database
+        const API_BASE = (window.location.origin && !window.location.origin.includes('file://')) 
+            ? `${window.location.origin}/api/articles` 
+            : '/api/articles';
 
-<h2 class="font-serif text-2xl font-bold text-deep-teal mt-8 mb-3">Understanding the Archetypes</h2>
+        let cachedArticlesList = [];
 
-<p class="leading-relaxed mb-6">Each card represents a universal archetype or human experience. By exploring your current questions through tarot, Priyanshu Dhyani provides a grounded space to explore options, evaluate emotional dynamics, and regain personal alignment.</p>
+        async function fetchCentralDatabase(statusFilter = null) {
+            try {
+                let url = API_BASE;
+                if (statusFilter) {
+                    url += `?status=${encodeURIComponent(statusFilter)}`;
+                }
 
-<blockquote class="my-6 pl-6 py-3 border-l-4 border-gold-dust bg-soft-cream/60 rounded-r-xl font-serif italic text-lg text-deep-teal">
-“Tarot does not dictate your future—it empowers you to shape it with clarity and conscious choice.”
-</blockquote>
+                const res = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
 
-<h3 class="font-serif text-xl font-bold text-deep-teal mt-6 mb-3">Key Benefits of an Intuitive Session:</h3>
+                if (!res.ok) {
+                    throw new Error(`HTTP error ${res.status}`);
+                }
 
-<ul class="list-disc pl-6 space-y-2 mb-6">
-    <li><strong>Clarity on Complex Questions:</strong> Break down complicated life choices into manageable perspectives.</li>
-    <li><strong>Emotional Grounding:</strong> Identify hidden feelings and recurring behavioral patterns.</li>
-    <li><strong>Actionable Direction:</strong> Gain actionable insights for personal, career, and relationship growth.</li>
-</ul>
-
-<hr class="my-8 border-t border-gold-dust/40">`,
-                seoTitle: 'Understanding Tarot for Clarity',
-                metaDesc: 'Learn how tarot acts as a mirror for reflection.',
-                slug: 'understanding-tarot-clarity',
-                featured: true
-            },
-            {
-                id: 'art-2',
-                title: 'Navigating Life Transitions with Intuitive Guidance',
-                category: 'Tarot Guidance',
-                status: 'PUBLISHED',
-                date: '2026-08-15',
-                author: 'Priyanshu Dhyani',
-                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop',
-                excerpt: 'Major choices and life shifts can bring uncertainty. Here is how structured tarot sessions offer calm perspective.',
-                content: `<p class="text-lg leading-relaxed mb-6 font-normal">Life transitions—whether in career, relationships, or personal growth—often bring a mix of anticipation and doubt. During these pivotal moments, tarot offers an essential pause for deep listening and self-reflection.</p>
-
-<h2 class="font-serif text-2xl font-bold text-deep-teal mt-8 mb-3">Finding Stability Amid Change</h2>
-
-<p class="leading-relaxed mb-6">Rather than predicting rigid outcomes, an intuitive reading with Priyanshu Dhyani highlights the underlying energetic forces at play, giving you greater confidence in your decision-making.</p>
-
-<blockquote class="my-6 pl-6 py-3 border-l-4 border-gold-dust bg-soft-cream/60 rounded-r-xl font-serif italic text-lg text-deep-teal">
-“In every transition lies an opportunity for profound personal awakening and realignment.”
-</blockquote>
-
-<h3 class="font-serif text-xl font-bold text-deep-teal mt-6 mb-3">How to Prepare for Your Reading:</h3>
-
-<ol class="list-decimal pl-6 space-y-2 mb-6">
-    <li>Reflect on your core question with open curiosity.</li>
-    <li>Keep a journal handy for personal notes during the session.</li>
-    <li>Approach the experience with a calm, receptive mind.</li>
-</ol>`,
-                seoTitle: 'Navigating Life Transitions',
-                metaDesc: 'Tarot guidance during major life shifts.',
-                slug: 'navigating-life-transitions',
-                featured: false
+                const data = await res.json();
+                cachedArticlesList = Array.isArray(data) ? data : [];
+                return cachedArticlesList;
+            } catch (err) {
+                console.error('Error querying central database:', err);
+                throw err;
             }
-        ];
-
-        function getStoredArticles() {
-            const raw = localStorage.getItem('mystical_tarot_articles');
-            if (!raw) {
-                localStorage.setItem('mystical_tarot_articles', JSON.stringify(DEFAULT_ARTICLES));
-                return DEFAULT_ARTICLES;
-            }
-            return JSON.parse(raw);
         }
 
-        function saveStoredArticles(articles) {
-            localStorage.setItem('mystical_tarot_articles', JSON.stringify(articles));
-            renderPublicBlog();
-            renderAdminTable();
+        async function saveArticleToCentralDb(articleObj) {
+            try {
+                const isUpdate = cachedArticlesList.some(a => a.id === articleObj.id);
+                const url = isUpdate ? `${API_BASE}/${articleObj.id}` : API_BASE;
+                const method = isUpdate ? 'PUT' : 'POST';
+
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate'
+                    },
+                    body: JSON.stringify(articleObj)
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Failed to save article: ${res.status}`);
+                }
+
+                const result = await res.json();
+                return result;
+            } catch (err) {
+                console.error('Error saving to central database:', err);
+                throw err;
+            }
+        }
+
+        async function deleteArticleFromCentralDb(id) {
+            try {
+                const res = await fetch(`${API_BASE}/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate'
+                    }
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Failed to delete article: ${res.status}`);
+                }
+
+                return await res.json();
+            } catch (err) {
+                console.error('Error deleting from central database:', err);
+                throw err;
+            }
         }
 
 
@@ -1419,57 +1433,73 @@
         }
 
 
-        // --- 5. PUBLIC BLOG RENDERING ---
-        function renderPublicBlog() {
-            const articles = getStoredArticles();
-            const published = articles.filter(a => a.status === 'PUBLISHED');
+        // --- 5. PUBLIC BLOG RENDERING (LIVE FROM CENTRAL DATABASE) ---
+        async function renderPublicBlog() {
             const grid = document.getElementById('public-blog-grid');
             const empty = document.getElementById('blog-empty-state');
+            const loading = document.getElementById('blog-loading-state');
+            const errorState = document.getElementById('blog-error-state');
+            
+            grid.innerHTML = '';
+            empty.classList.add('hidden');
+            errorState.classList.add('hidden');
+            loading.classList.remove('hidden');
+
             const searchVal = (document.getElementById('blog-search-input')?.value || '').toLowerCase();
             const catVal = document.getElementById('blog-category-select')?.value || 'ALL';
 
-            const filtered = published.filter(a => {
-                const textOnly = a.content.replace(/<[^>]*>?/gm, '');
-                const matchesSearch = a.title.toLowerCase().includes(searchVal) || textOnly.toLowerCase().includes(searchVal);
-                const matchesCat = catVal === 'ALL' || a.category === catVal;
-                return matchesSearch && matchesCat;
-            });
+            try {
+                const published = await fetchCentralDatabase('PUBLISHED');
+                loading.classList.add('hidden');
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                empty.classList.remove('hidden');
-                return;
-            } else {
+                const filtered = published.filter(a => {
+                    const contentStr = a.content || '';
+                    const textOnly = contentStr.replace(/<[^>]*>?/gm, '');
+                    const matchesSearch = (a.title || '').toLowerCase().includes(searchVal) || textOnly.toLowerCase().includes(searchVal);
+                    const matchesCat = catVal === 'ALL' || a.category === catVal;
+                    return matchesSearch && matchesCat;
+                });
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = '';
+                    empty.classList.remove('hidden');
+                    return;
+                }
+
                 empty.classList.add('hidden');
-            }
+                grid.innerHTML = filtered.map(art => `
+                    <div class="bg-white rounded-2xl gold-border shadow-xs overflow-hidden flex flex-col justify-between card-hover-effect">
+                        <div>
+                            <div class="h-48 overflow-hidden relative">
+                                <img src="${art.featured_image || art.image || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000'}" alt="${art.title}" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-peacock-teal font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
+                                    ${art.category}
+                                </span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                    ${art.title}
+                                </h3>
+                                <p class="text-xs text-deep-teal/70 leading-relaxed line-clamp-3">
+                                    ${art.excerpt}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-gold-dust/20 text-xs">
+                            <span class="text-deep-teal/60 font-medium">${art.publication_date || art.date}</span>
+                            <button onclick="openArticleModal('${art.id}')" class="text-peacock-teal hover:text-deep-teal font-bold flex items-center gap-1 transition-colors">
+                                <span>READ ARTICLE</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
 
-            grid.innerHTML = filtered.map(art => `
-                <div class="bg-white rounded-2xl gold-border shadow-xs overflow-hidden flex flex-col justify-between card-hover-effect">
-                    <div>
-                        <div class="h-48 overflow-hidden relative">
-                            <img src="${art.image || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000'}" alt="${art.title}" class="w-full h-full object-cover">
-                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-peacock-teal font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
-                                ${art.category}
-                            </span>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
-                                ${art.title}
-                            </h3>
-                            <p class="text-xs text-deep-teal/70 leading-relaxed line-clamp-3">
-                                ${art.excerpt}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-gold-dust/20 text-xs">
-                        <span class="text-deep-teal/60 font-medium">${art.date}</span>
-                        <button onclick="openArticleModal('${art.id}')" class="text-peacock-teal hover:text-deep-teal font-bold flex items-center gap-1 transition-colors">
-                            <span>READ ARTICLE</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+            } catch (err) {
+                loading.classList.add('hidden');
+                grid.innerHTML = '';
+                errorState.classList.remove('hidden');
+            }
         }
 
         function filterPublicBlogs() {
@@ -1477,17 +1507,17 @@
         }
 
         function openArticleModal(id) {
-            const articles = getStoredArticles();
-            const art = articles.find(a => a.id === id);
+            const art = cachedArticlesList.find(a => a.id === id);
             if (!art) return;
 
             document.getElementById('article-view-category').innerText = art.category;
             document.getElementById('article-view-title').innerText = art.title;
-            document.getElementById('article-view-date').innerText = art.date;
+            document.getElementById('article-view-date').innerText = art.publication_date || art.date;
             
             const img = document.getElementById('article-view-image');
-            if (art.image) {
-                img.src = art.image;
+            const imgUrl = art.featured_image || art.image;
+            if (imgUrl) {
+                img.src = imgUrl;
                 document.getElementById('article-view-image-container').classList.remove('hidden');
             } else {
                 document.getElementById('article-view-image-container').classList.add('hidden');
@@ -1556,65 +1586,88 @@
         }
 
 
-        // --- 7. ADMIN DASHBOARD TABLE & ACTIONS ---
-        function renderAdminTable() {
-            const articles = getStoredArticles();
+        // --- 7. ADMIN DASHBOARD TABLE & ACTIONS (LIVE FROM CENTRAL DB) ---
+        async function renderAdminTable() {
+            const tbody = document.getElementById('admin-articles-tbody');
+            tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-deep-teal/60"><i class="fa-solid fa-spinner fa-spin text-peacock-teal mr-2"></i>Loading articles from central database...</td></tr>`;
+
             const searchVal = (document.getElementById('admin-search-input')?.value || '').toLowerCase();
             const statusVal = document.getElementById('admin-status-filter')?.value || 'ALL';
 
-            const filtered = articles.filter(a => {
-                const matchesSearch = a.title.toLowerCase().includes(searchVal);
-                const matchesStatus = statusVal === 'ALL' || a.status === statusVal;
-                return matchesSearch && matchesStatus;
-            });
+            try {
+                const articles = await fetchCentralDatabase();
+                const filtered = articles.filter(a => {
+                    const matchesSearch = (a.title || '').toLowerCase().includes(searchVal);
+                    const matchesStatus = statusVal === 'ALL' || a.status === statusVal;
+                    return matchesSearch && matchesStatus;
+                });
 
-            const tbody = document.getElementById('admin-articles-tbody');
-            tbody.innerHTML = filtered.map(art => {
-                let badgeClass = 'bg-gray-100 text-gray-700';
-                if (art.status === 'PUBLISHED') badgeClass = 'bg-emerald-100 text-emerald-800';
-                if (art.status === 'UNPUBLISHED') badgeClass = 'bg-amber-100 text-amber-800';
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-deep-teal/60">No articles found in central database.</td></tr>`;
+                    return;
+                }
 
-                return `
-                    <tr class="hover:bg-soft-cream/50 transition-colors">
-                        <td class="p-4 font-bold text-deep-teal">${art.title}</td>
-                        <td class="p-4 text-xs font-semibold text-peacock-teal">${art.category}</td>
-                        <td class="p-4">
-                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${badgeClass}">
-                                ${art.status}
-                            </span>
-                        </td>
-                        <td class="p-4 text-xs text-deep-teal/60">${art.date}</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button onclick="editArticle('${art.id}')" class="text-peacock-teal hover:underline text-xs font-bold">EDIT</button>
-                            <button onclick="togglePublishStatus('${art.id}')" class="text-deep-teal hover:underline text-xs font-bold">
-                                ${art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH'}
-                            </button>
-                            <button onclick="deleteArticle('${art.id}')" class="text-lotus-coral hover:underline text-xs font-bold">DELETE</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
+                tbody.innerHTML = filtered.map(art => {
+                    let badgeClass = 'bg-gray-100 text-gray-700';
+                    if (art.status === 'PUBLISHED') badgeClass = 'bg-emerald-100 text-emerald-800';
+                    if (art.status === 'UNPUBLISHED') badgeClass = 'bg-amber-100 text-amber-800';
 
-        function togglePublishStatus(id) {
-            const articles = getStoredArticles();
-            const art = articles.find(a => a.id === id);
-            if (!art) return;
+                    return `
+                        <tr class="hover:bg-soft-cream/50 transition-colors">
+                            <td class="p-4 font-bold text-deep-teal">${art.title}</td>
+                            <td class="p-4 text-xs font-semibold text-peacock-teal">${art.category}</td>
+                            <td class="p-4">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${badgeClass}">
+                                    ${art.status}
+                                </span>
+                            </td>
+                            <td class="p-4 text-xs text-deep-teal/60">${art.publication_date || art.date}</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="editArticle('${art.id}')" class="text-peacock-teal hover:underline text-xs font-bold">EDIT</button>
+                                <button onclick="togglePublishStatus('${art.id}')" class="text-deep-teal hover:underline text-xs font-bold">
+                                    ${art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH'}
+                                </button>
+                                <button onclick="deleteArticle('${art.id}')" class="text-lotus-coral hover:underline text-xs font-bold">DELETE</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
 
-            const action = art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH';
-            if (confirm(`${action} THIS ARTICLE?`)) {
-                art.status = art.status === 'PUBLISHED' ? 'UNPUBLISHED' : 'PUBLISHED';
-                saveStoredArticles(articles);
-                showToast(`Article status updated to ${art.status}`);
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-lotus-coral">Failed to connect to central database. Please try again.</td></tr>`;
             }
         }
 
-        function deleteArticle(id) {
+        async function togglePublishStatus(id) {
+            const art = cachedArticlesList.find(a => a.id === id);
+            if (!art) return;
+
+            const nextStatus = art.status === 'PUBLISHED' ? 'UNPUBLISHED' : 'PUBLISHED';
+            const actionLabel = art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH';
+
+            if (confirm(`${actionLabel} THIS ARTICLE?`)) {
+                try {
+                    const updated = { ...art, status: nextStatus, updated_date: new Date().toISOString().split('T')[0] };
+                    await saveArticleToCentralDb(updated);
+                    showToast(`Article status updated to ${nextStatus}`);
+                    await renderAdminTable();
+                    await renderPublicBlog();
+                } catch (e) {
+                    showToast("Failed to update status in central database.");
+                }
+            }
+        }
+
+        async function deleteArticle(id) {
             if (confirm("DELETE THIS ARTICLE PERMANENTLY?")) {
-                let articles = getStoredArticles();
-                articles = articles.filter(a => a.id !== id);
-                saveStoredArticles(articles);
-                showToast("Article deleted permanently.");
+                try {
+                    await deleteArticleFromCentralDb(id);
+                    showToast("Article deleted permanently from central database.");
+                    await renderAdminTable();
+                    await renderPublicBlog();
+                } catch (e) {
+                    showToast("Failed to delete article from central database.");
+                }
             }
         }
 
@@ -1741,18 +1794,17 @@
             editorCanvas.innerHTML = '';
 
             if (id) {
-                const articles = getStoredArticles();
-                const art = articles.find(a => a.id === id);
+                const art = cachedArticlesList.find(a => a.id === id);
                 if (art) {
                     document.getElementById('editor-heading').innerText = 'EDIT ARTICLE';
                     document.getElementById('editor-article-id').value = art.id;
                     document.getElementById('editor-title').value = art.title;
                     document.getElementById('editor-category').value = art.category;
-                    document.getElementById('editor-image-url').value = art.image || '';
+                    document.getElementById('editor-image-url').value = art.featured_image || art.image || '';
                     document.getElementById('editor-excerpt').value = art.excerpt;
                     editorCanvas.innerHTML = art.content;
-                    document.getElementById('editor-seo-title').value = art.seoTitle || '';
-                    document.getElementById('editor-meta-desc').value = art.metaDesc || '';
+                    document.getElementById('editor-seo-title').value = art.seo_title || art.seoTitle || '';
+                    document.getElementById('editor-meta-desc').value = art.meta_description || art.metaDesc || '';
                     document.getElementById('editor-slug').value = art.slug || '';
                 }
             } else {
@@ -1783,36 +1835,39 @@
             saveArticleData('DRAFT');
         }
 
-        function saveArticleData(targetStatus) {
-            const articles = getStoredArticles();
+        async function saveArticleData(targetStatus) {
             const id = document.getElementById('editor-article-id').value || `art-${Date.now()}`;
             const htmlContent = editorCanvas.innerHTML;
+            const todayStr = new Date().toISOString().split('T')[0];
             
-            const newArt = {
+            const articleObj = {
                 id: id,
                 title: document.getElementById('editor-title').value,
+                slug: document.getElementById('editor-slug').value || `article-${Date.now()}`,
                 category: document.getElementById('editor-category').value,
-                status: targetStatus,
-                date: new Date().toISOString().split('T')[0],
-                author: 'Priyanshu Dhyani',
+                featured_image: document.getElementById('editor-image-url').value,
                 image: document.getElementById('editor-image-url').value,
                 excerpt: document.getElementById('editor-excerpt').value,
                 content: htmlContent,
-                seoTitle: document.getElementById('editor-seo-title').value,
-                metaDesc: document.getElementById('editor-meta-desc').value,
-                slug: document.getElementById('editor-slug').value
+                author: 'Priyanshu Dhyani',
+                status: targetStatus,
+                publication_date: todayStr,
+                date: todayStr,
+                updated_date: todayStr,
+                seo_title: document.getElementById('editor-seo-title').value,
+                meta_description: document.getElementById('editor-meta-desc').value,
+                featured: false
             };
 
-            const existingIdx = articles.findIndex(a => a.id === id);
-            if (existingIdx >= 0) {
-                articles[existingIdx] = newArt;
-            } else {
-                articles.unshift(newArt);
+            try {
+                await saveArticleToCentralDb(articleObj);
+                closeArticleEditor();
+                showToast(targetStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED GLOBALLY TO CENTRAL DB" : "DRAFT SAVED TO CENTRAL DB");
+                await renderAdminTable();
+                await renderPublicBlog();
+            } catch (e) {
+                showToast("Error saving article to central database.");
             }
-
-            saveStoredArticles(articles);
-            closeArticleEditor();
-            showToast(targetStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED SUCCESSFULLY" : "DRAFT SAVED");
         }
 
         function previewArticle() {
@@ -1835,7 +1890,7 @@
         }
 
 
-        // --- INITIAL RENDER ON PAGE LOAD ---
+        // --- INITIAL RENDER ON PAGE LOAD FROM CENTRAL DATABASE ---
         window.addEventListener('DOMContentLoaded', () => {
             renderPublicBlog();
         });

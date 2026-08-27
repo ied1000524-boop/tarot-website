@@ -705,14 +705,14 @@
                 <div id="blog-loading-state" class="text-center py-16 bg-white/60 rounded-2xl gold-border">
                     <i class="fa-solid fa-spinner fa-spin text-4xl text-peacock-teal mb-3"></i>
                     <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">Loading Tarot Insights...</h3>
-                    <p class="text-sm text-deep-teal/70">Fetching published articles from central cloud database...</p>
+                    <p class="text-sm text-deep-teal/70">Connecting to central database...</p>
                 </div>
 
                 <!-- Blog Error State -->
                 <div id="blog-error-state" class="hidden text-center py-16 bg-white/60 rounded-2xl gold-border">
                     <i class="fa-solid fa-triangle-exclamation text-4xl text-lotus-coral mb-3"></i>
-                    <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">Notice</h3>
-                    <p class="text-sm text-deep-teal/70">Unable to load articles right now. Please try again shortly.</p>
+                    <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">Unable to load articles right now</h3>
+                    <p class="text-sm text-deep-teal/70">Please check your connection and try again shortly.</p>
                 </div>
 
                 <!-- Blog Cards Grid (Published Articles Only) -->
@@ -950,7 +950,7 @@
     </div>
 
 
-    <!-- 2. PUBLIC BLOG ARTICLE READER MODAL / VIEW (Controlled ~760px-820px Reading Width) -->
+    <!-- 2. PUBLIC BLOG ARTICLE READER MODAL / VIEW -->
     <div id="article-modal" class="fixed inset-0 z-50 hidden bg-deep-teal/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-soft-cream rounded-3xl max-w-article w-full p-6 sm:p-10 gold-border-glow relative shadow-2xl my-8 max-h-[90vh] overflow-y-auto space-y-8">
             <button onclick="closeArticleModal()" class="absolute top-6 right-6 text-deep-teal/60 hover:text-deep-teal text-2xl focus:outline-none">
@@ -971,7 +971,7 @@
                 <img id="article-view-image" src="" alt="" class="w-full h-full object-cover">
             </div>
 
-            <!-- Article Body Content (Rich Editorial Formatting) -->
+            <!-- Article Body Content -->
             <div id="article-view-content" class="article-body font-sans">
             </div>
 
@@ -1221,7 +1221,7 @@
 
                     <!-- Editor Footer Status & Counts -->
                     <div class="flex items-center justify-between text-[11px] text-deep-teal/60 pt-2 px-1">
-                        <div>Central Cloud Database Active</div>
+                        <div>Central Database Connected</div>
                         <div class="flex gap-4">
                             <span>Words: <strong id="editor-word-count" class="text-deep-teal font-mono">0</strong></span>
                             <span>Characters: <strong id="editor-char-count" class="text-deep-teal font-mono">0</strong></span>
@@ -1247,16 +1247,16 @@
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-gold-dust/30">
                     <div class="flex gap-3">
-                        <button type="button" onclick="saveAsDraft()" class="bg-gray-200 hover:bg-gray-300 text-deep-teal font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider">
+                        <button type="button" id="save-draft-btn" onclick="saveAsDraft()" class="bg-gray-200 hover:bg-gray-300 text-deep-teal font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider transition-colors">
                             SAVE DRAFT
                         </button>
-                        <button type="button" onclick="previewArticle()" class="border border-peacock-teal text-peacock-teal hover:bg-peacock-teal hover:text-white font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider">
+                        <button type="button" onclick="previewArticle()" class="border border-peacock-teal text-peacock-teal hover:bg-peacock-teal hover:text-white font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider transition-colors">
                             PREVIEW
                         </button>
                     </div>
 
                     <div class="flex gap-3">
-                        <button type="submit" class="bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold px-6 py-2.5 rounded-lg text-xs tracking-wider shadow-xs">
+                        <button type="submit" id="publish-submit-btn" class="bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold px-6 py-2.5 rounded-lg text-xs tracking-wider shadow-xs transition-colors">
                             PUBLISH ARTICLE
                         </button>
                     </div>
@@ -1273,22 +1273,16 @@
 
     <!-- ==================== INTERACTIVE JAVASCRIPT LOGIC ==================== -->
     <script>
-        // ==================== SINGLE CENTRAL PRODUCTION DATABASE API ====================
-        // Connects to persistent Central Cloud Database & local backend API
-        const CLOUD_DB_DIRECT = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0440daa513a1c';
-        const API_BASE = (window.location.origin && !window.location.origin.includes('file://')) 
-            ? `${window.location.origin}/api/articles` 
-            : CLOUD_DB_DIRECT;
+        // ==================== SINGLE SHARED CENTRAL DATABASE API ====================
+        // Connects to /api/articles with automatic relative path resolution across all environments
+        const API_BASE = '/api/articles';
 
         let cachedArticlesList = [];
 
         async function fetchCentralDatabase(statusFilter = null) {
-            let articles = [];
-            
-            // 1. Try fetching via API_BASE (Vercel Serverless / Node Server)
             try {
                 let url = API_BASE;
-                if (url.includes('/api/articles') && statusFilter) {
+                if (statusFilter) {
                     url += `?status=${encodeURIComponent(statusFilter)}`;
                 }
 
@@ -1300,143 +1294,66 @@
                     }
                 });
 
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data)) {
-                        articles = data;
-                    } else if (data && data.data && Array.isArray(data.data.articles)) {
-                        articles = data.data.articles;
-                    }
+                if (!res.ok) {
+                    throw new Error(`HTTP error ${res.status}`);
                 }
+
+                const data = await res.json();
+                cachedArticlesList = Array.isArray(data) ? data : [];
+                return cachedArticlesList;
             } catch (err) {
-                console.warn('API_BASE fetch failed, querying CLOUD_DB_DIRECT:', err);
+                console.error('Error querying central database:', err);
+                throw err;
             }
-
-            // 2. Direct Cloud Database query fallback (Ensures global sync anywhere)
-            if (articles.length === 0 && API_BASE !== CLOUD_DB_DIRECT) {
-                try {
-                    const res = await fetch(CLOUD_DB_DIRECT, {
-                        method: 'GET',
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate'
-                        }
-                    });
-                    if (res.ok) {
-                        const json = await res.json();
-                        if (json.data && Array.isArray(json.data.articles)) {
-                            articles = json.data.articles;
-                        }
-                    }
-                } catch (err) {
-                    console.error('Direct cloud database query failed:', err);
-                }
-            }
-
-            cachedArticlesList = articles;
-            if (statusFilter) {
-                return articles.filter(a => a.status === statusFilter);
-            }
-            return articles;
         }
 
         async function saveArticleToCentralDb(articleObj) {
-            const todayStr = new Date().toISOString().split('T')[0];
-            const fullArticle = {
-                id: articleObj.id || `art-${Date.now()}`,
-                title: articleObj.title || 'Untitled Article',
-                slug: articleObj.slug || `article-${Date.now()}`,
-                category: articleObj.category || 'General Insights',
-                featured_image: articleObj.featured_image || articleObj.image || '',
-                image: articleObj.featured_image || articleObj.image || '',
-                excerpt: articleObj.excerpt || '',
-                content: articleObj.content || '',
-                author: 'Priyanshu Dhyani',
-                status: articleObj.status || 'DRAFT',
-                published_at: articleObj.status === 'PUBLISHED' ? (articleObj.published_at || todayStr) : '',
-                publication_date: todayStr,
-                date: todayStr,
-                created_at: articleObj.created_at || todayStr,
-                updated_at: todayStr,
-                updated_date: todayStr,
-                seo_title: articleObj.seo_title || articleObj.seoTitle || '',
-                meta_description: articleObj.meta_description || articleObj.metaDesc || '',
-                is_featured: Boolean(articleObj.is_featured || articleObj.featured),
-                featured: Boolean(articleObj.is_featured || articleObj.featured)
-            };
-
-            // 1. Fetch current list from cloud
-            const currentList = await fetchCentralDatabase();
-            const idx = currentList.findIndex(a => a.id === fullArticle.id);
-            if (idx >= 0) {
-                currentList[idx] = { ...currentList[idx], ...fullArticle };
-            } else {
-                currentList.unshift(fullArticle);
-            }
-
-            // 2. Save directly to Central Cloud DB
-            const cloudBody = {
-                name: "Mystical Tarot Blog Articles",
-                data: { articles: currentList }
-            };
-
-            const res = await fetch(CLOUD_DB_DIRECT, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate'
-                },
-                body: JSON.stringify(cloudBody)
-            });
-
-            if (!res.ok) {
-                throw new Error('Cloud database save failed: ' + res.status);
-            }
-
-            // Also notify API_BASE if available
             try {
-                if (API_BASE !== CLOUD_DB_DIRECT) {
-                    await fetch(API_BASE, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(fullArticle)
-                    });
-                }
-            } catch(e) {}
+                const isUpdate = cachedArticlesList.some(a => a.id === articleObj.id);
+                const url = isUpdate ? `${API_BASE}/${encodeURIComponent(articleObj.id)}` : API_BASE;
+                const method = isUpdate ? 'PUT' : 'POST';
 
-            cachedArticlesList = currentList;
-            return { success: true, article: fullArticle };
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate'
+                    },
+                    body: JSON.stringify(articleObj)
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || `Server returned ${res.status}`);
+                }
+
+                const result = await res.json();
+                return result;
+            } catch (err) {
+                console.error('Error saving to central database:', err);
+                throw err;
+            }
         }
 
         async function deleteArticleFromCentralDb(id) {
-            const currentList = await fetchCentralDatabase();
-            const filtered = currentList.filter(a => a.id !== id);
-
-            const cloudBody = {
-                name: "Mystical Tarot Blog Articles",
-                data: { articles: filtered }
-            };
-
-            const res = await fetch(CLOUD_DB_DIRECT, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate'
-                },
-                body: JSON.stringify(cloudBody)
-            });
-
-            if (!res.ok) {
-                throw new Error('Cloud database delete failed: ' + res.status);
-            }
-
             try {
-                if (API_BASE !== CLOUD_DB_DIRECT) {
-                    await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
-                }
-            } catch(e) {}
+                const res = await fetch(`${API_BASE}/${encodeURIComponent(id)}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate'
+                    }
+                });
 
-            cachedArticlesList = filtered;
-            return { success: true, message: 'Article deleted permanently' };
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || `Server returned ${res.status}`);
+                }
+
+                return await res.json();
+            } catch (err) {
+                console.error('Error deleting from central database:', err);
+                throw err;
+            }
         }
 
 
@@ -1486,16 +1403,19 @@
             });
         }
 
-        function showToast(msg) {
+        function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'bg-deep-teal text-white px-5 py-3 rounded-xl shadow-lg text-xs font-semibold flex items-center gap-2 border border-gold-dust pointer-events-auto transition-all transform translate-y-2';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-peacock-teal"></i> <span>${msg}</span>`;
+            const bgColor = isError ? 'bg-lotus-coral' : 'bg-deep-teal';
+            const iconClass = isError ? 'fa-triangle-exclamation' : 'fa-circle-check text-peacock-teal';
+            
+            toast.className = `${bgColor} text-white px-5 py-3 rounded-xl shadow-lg text-xs font-semibold flex items-center gap-2 border border-gold-dust pointer-events-auto transition-all transform translate-y-2`;
+            toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${msg}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
                 toast.classList.add('opacity-0');
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 3500);
         }
 
 
@@ -1516,7 +1436,7 @@
         }
 
 
-        // --- 5. PUBLIC BLOG RENDERING (LIVE FROM CENTRAL CLOUD DATABASE) ---
+        // --- 5. PUBLIC BLOG RENDERING (LIVE FROM CENTRAL DATABASE) ---
         async function renderPublicBlog() {
             const grid = document.getElementById('public-blog-grid');
             const empty = document.getElementById('blog-empty-state');
@@ -1569,7 +1489,7 @@
                             </div>
                         </div>
                         <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-gold-dust/20 text-xs">
-                            <span class="text-deep-teal/60 font-medium">${art.published_at || art.publication_date || art.date}</span>
+                            <span class="text-deep-teal/60 font-medium">${art.publication_date || art.date}</span>
                             <button onclick="openArticleModal('${art.id}')" class="text-peacock-teal hover:text-deep-teal font-bold flex items-center gap-1 transition-colors">
                                 <span>READ ARTICLE</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -1595,7 +1515,7 @@
 
             document.getElementById('article-view-category').innerText = art.category;
             document.getElementById('article-view-title').innerText = art.title;
-            document.getElementById('article-view-date').innerText = art.published_at || art.publication_date || art.date;
+            document.getElementById('article-view-date').innerText = art.publication_date || art.date;
             
             const img = document.getElementById('article-view-image');
             const imgUrl = art.featured_image || art.image;
@@ -1637,7 +1557,7 @@
 
         function handleAdminLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('admin-email').value;
+            const email = document.getElementById('admin-email').value.trim();
             const pwd = document.getElementById('admin-password').value;
             const errMsg = document.getElementById('login-error-msg');
 
@@ -1669,10 +1589,10 @@
         }
 
 
-        // --- 7. ADMIN DASHBOARD TABLE & ACTIONS (LIVE FROM CENTRAL CLOUD DB) ---
+        // --- 7. ADMIN DASHBOARD TABLE & ACTIONS (LIVE FROM CENTRAL DB) ---
         async function renderAdminTable() {
             const tbody = document.getElementById('admin-articles-tbody');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-deep-teal/60"><i class="fa-solid fa-spinner fa-spin text-peacock-teal mr-2"></i>Loading articles from central cloud database...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-deep-teal/60"><i class="fa-solid fa-spinner fa-spin text-peacock-teal mr-2"></i>Loading articles from central database...</td></tr>`;
 
             const searchVal = (document.getElementById('admin-search-input')?.value || '').toLowerCase();
             const statusVal = document.getElementById('admin-status-filter')?.value || 'ALL';
@@ -1704,7 +1624,7 @@
                                     ${art.status}
                                 </span>
                             </td>
-                            <td class="p-4 text-xs text-deep-teal/60">${art.published_at || art.publication_date || art.date}</td>
+                            <td class="p-4 text-xs text-deep-teal/60">${art.publication_date || art.date}</td>
                             <td class="p-4 text-right space-x-2">
                                 <button onclick="editArticle('${art.id}')" class="text-peacock-teal hover:underline text-xs font-bold">EDIT</button>
                                 <button onclick="togglePublishStatus('${art.id}')" class="text-deep-teal hover:underline text-xs font-bold">
@@ -1732,11 +1652,11 @@
                 try {
                     const updated = { ...art, status: nextStatus, updated_date: new Date().toISOString().split('T')[0] };
                     await saveArticleToCentralDb(updated);
-                    showToast(nextStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED SUCCESSFULLY" : "ARTICLE UNPUBLISHED");
+                    showToast(`Article status updated to ${nextStatus}`);
                     await renderAdminTable();
                     await renderPublicBlog();
                 } catch (e) {
-                    showToast("Failed to update status in central database.");
+                    showToast("Failed to update status in central database.", true);
                 }
             }
         }
@@ -1749,7 +1669,7 @@
                     await renderAdminTable();
                     await renderPublicBlog();
                 } catch (e) {
-                    showToast("Failed to delete article from central database.");
+                    showToast("Failed to delete article from central database.", true);
                 }
             }
         }
@@ -1919,40 +1839,54 @@
         }
 
         async function saveArticleData(targetStatus) {
-            const id = document.getElementById('editor-article-id').value || `art-${Date.now()}`;
+            const title = document.getElementById('editor-title').value.trim();
             const htmlContent = editorCanvas.innerHTML;
+
+            if (!title) {
+                showToast("Please enter an article title", true);
+                return;
+            }
+
+            const id = document.getElementById('editor-article-id').value || `art-${Date.now()}`;
             const todayStr = new Date().toISOString().split('T')[0];
-            
+            const publishBtn = document.getElementById('publish-submit-btn');
+            const draftBtn = document.getElementById('save-draft-btn');
+
+            publishBtn.disabled = true;
+            draftBtn.disabled = true;
+            showToast("Saving to central database...");
+
             const articleObj = {
                 id: id,
-                title: document.getElementById('editor-title').value,
-                slug: document.getElementById('editor-slug').value || `article-${Date.now()}`,
+                title: title,
+                slug: document.getElementById('editor-slug').value.trim() || `article-${Date.now()}`,
                 category: document.getElementById('editor-category').value,
-                featured_image: document.getElementById('editor-image-url').value,
-                image: document.getElementById('editor-image-url').value,
-                excerpt: document.getElementById('editor-excerpt').value,
+                featured_image: document.getElementById('editor-image-url').value.trim(),
+                image: document.getElementById('editor-image-url').value.trim(),
+                excerpt: document.getElementById('editor-excerpt').value.trim(),
                 content: htmlContent,
                 author: 'Priyanshu Dhyani',
                 status: targetStatus,
-                published_at: targetStatus === 'PUBLISHED' ? todayStr : '',
                 publication_date: todayStr,
                 date: todayStr,
                 updated_date: todayStr,
-                seo_title: document.getElementById('editor-seo-title').value,
-                meta_description: document.getElementById('editor-meta-desc').value,
-                is_featured: false,
+                seo_title: document.getElementById('editor-seo-title').value.trim(),
+                meta_description: document.getElementById('editor-meta-desc').value.trim(),
                 featured: false
             };
 
             try {
                 await saveArticleToCentralDb(articleObj);
+                publishBtn.disabled = false;
+                draftBtn.disabled = false;
                 closeArticleEditor();
-                showToast(targetStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED SUCCESSFULLY" : "DRAFT SAVED SUCCESSFULLY");
+                showToast(targetStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED GLOBALLY TO CENTRAL DB" : "DRAFT SAVED TO CENTRAL DB");
                 await renderAdminTable();
                 await renderPublicBlog();
             } catch (e) {
-                console.error("Save error:", e);
-                showToast("Unable to save article. Please check connection and try again.");
+                publishBtn.disabled = false;
+                draftBtn.disabled = false;
+                showToast(`Unable to save: ${e.message || 'Check connection and try again.'}`, true);
             }
         }
 

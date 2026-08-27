@@ -1,12 +1,10 @@
 const http = require('http');
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
 const DB_FILE = path.join(__dirname, 'articles.json');
-const CLOUD_DB_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0440daa513a1c';
 
 // Initialize empty persistent database file if it does not exist
 if (!fs.existsSync(DB_FILE)) {
@@ -24,68 +22,27 @@ const MIME_TYPES = {
     '.json': 'application/json'
 };
 
-async function fetchFromCloud() {
-    return new Promise((resolve) => {
-        https.get(CLOUD_DB_URL, { headers: { 'Cache-Control': 'no-cache' } }, (res) => {
-            let data = '';
-            res.on('data', chunk => { data += chunk; });
-            res.on('end', () => {
-                try {
-                    const json = JSON.parse(data);
-                    if (json.data && Array.isArray(json.data.articles)) {
-                        fs.writeFileSync(DB_FILE, JSON.stringify(json.data.articles, null, 2), 'utf-8');
-                        resolve(json.data.articles);
-                    } else {
-                        resolve(readLocalDb());
-                    }
-                } catch (e) {
-                    resolve(readLocalDb());
-                }
-            });
-        }).on('error', () => {
-            resolve(readLocalDb());
-        });
-    });
-}
-
-async function saveToCloud(articles) {
-    fs.writeFileSync(DB_FILE, JSON.stringify(articles, null, 2), 'utf-8');
-    return new Promise((resolve) => {
-        const bodyStr = JSON.stringify({
-            name: "Mystical Tarot Blog Articles",
-            data: { articles: articles }
-        });
-
-        const req = https.request(CLOUD_DB_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(bodyStr),
-                'Cache-Control': 'no-cache'
-            }
-        }, (res) => {
-            resolve(res.statusCode === 200);
-        });
-
-        req.on('error', () => {
-            resolve(true); // local backup was saved
-        });
-
-        req.write(bodyStr);
-        req.end();
-    });
-}
-
-function readLocalDb() {
+function readArticlesFromDb() {
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
         return JSON.parse(data);
     } catch (err) {
+        console.error('Error reading articles database:', err);
         return [];
     }
 }
 
-const server = http.createServer(async (req, res) => {
+function writeArticlesToDb(articles) {
+    try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(articles, null, 2), 'utf-8');
+        return true;
+    } catch (err) {
+        console.error('Error writing articles database:', err);
+        return false;
+    }
+}
+
+const server = http.createServer((req, res) => {
     // CORS & No-Cache Headers for API
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -106,7 +63,7 @@ const server = http.createServer(async (req, res) => {
 
         // GET /api/articles or /api/articles?status=PUBLISHED
         if (req.method === 'GET') {
-            const articles = await fetchFromCloud();
+            const articles = readArticlesFromDb();
             const statusFilter = parsedUrl.searchParams.get('status');
 
             if (statusFilter) {
@@ -122,7 +79,7 @@ const server = http.createServer(async (req, res) => {
         // Body parsing helper for POST/PUT
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
-        req.on('end', async () => {
+        req.on('end', () => {
             let data = {};
             if (body) {
                 try { data = JSON.parse(body); } catch (e) {}
@@ -130,8 +87,7 @@ const server = http.createServer(async (req, res) => {
 
             // POST /api/articles (Create Article)
             if (req.method === 'POST' && pathname === '/api/articles') {
-                const articles = await fetchFromCloud();
-                const todayStr = new Date().toISOString().split('T')[0];
+                const articles = readArticlesFromDb();
                 const newArticle = {
                     id: data.id || `art-${Date.now()}`,
                     title: data.title || 'Untitled Article',
@@ -142,22 +98,22 @@ const server = http.createServer(async (req, res) => {
                     content: data.content || '',
                     author: 'Priyanshu Dhyani',
                     status: data.status || 'DRAFT',
-                    published_at: data.status === 'PUBLISHED' ? todayStr : (data.published_at || ''),
-                    created_at: data.created_at || todayStr,
-                    updated_date: todayStr,
+                    publication_date: data.publication_date || data.date || new Date().toISOString().split('T')[0],
+                    updated_date: new Date().toISOString().split('T')[0],
                     seo_title: data.seo_title || data.seoTitle || '',
                     meta_description: data.meta_description || data.metaDesc || '',
-                    is_featured: Boolean(data.is_featured || data.featured)
+                    featured: Boolean(data.featured)
                 };
 
+                // Check if updating existing by id
                 const idx = articles.findIndex(a => a.id === newArticle.id);
                 if (idx >= 0) {
-                    articles[idx] = { ...articles[idx], ...newArticle, updated_date: todayStr };
+                    articles[idx] = { ...articles[idx], ...newArticle };
                 } else {
                     articles.unshift(newArticle);
                 }
 
-                await saveToCloud(articles);
+                writeArticlesToDb(articles);
                 res.writeHead(200);
                 return res.end(JSON.stringify({ success: true, article: newArticle }));
             }
@@ -165,16 +121,12 @@ const server = http.createServer(async (req, res) => {
             // PUT /api/articles/:id (Update Article)
             if (req.method === 'PUT' && pathname.startsWith('/api/articles/')) {
                 const id = pathname.replace('/api/articles/', '');
-                const articles = await fetchFromCloud();
+                const articles = readArticlesFromDb();
                 const idx = articles.findIndex(a => a.id === id);
 
                 if (idx >= 0) {
-                    const todayStr = new Date().toISOString().split('T')[0];
-                    articles[idx] = { ...articles[idx], ...data, updated_date: todayStr };
-                    if (data.status === 'PUBLISHED' && !articles[idx].published_at) {
-                        articles[idx].published_at = todayStr;
-                    }
-                    await saveToCloud(articles);
+                    articles[idx] = { ...articles[idx], ...data, updated_date: new Date().toISOString().split('T')[0] };
+                    writeArticlesToDb(articles);
                     res.writeHead(200);
                     return res.end(JSON.stringify({ success: true, article: articles[idx] }));
                 } else {
@@ -186,14 +138,14 @@ const server = http.createServer(async (req, res) => {
             // DELETE /api/articles/:id (Delete Article)
             if (req.method === 'DELETE' && pathname.startsWith('/api/articles/')) {
                 const id = pathname.replace('/api/articles/', '');
-                let articles = await fetchFromCloud();
+                let articles = readArticlesFromDb();
                 const initialLen = articles.length;
                 articles = articles.filter(a => a.id !== id);
 
                 if (articles.length < initialLen) {
-                    await saveToCloud(articles);
+                    writeArticlesToDb(articles);
                     res.writeHead(200);
-                    return res.end(JSON.stringify({ success: true, message: 'Article deleted permanently' }));
+                    return res.end(JSON.stringify({ success: true, message: 'Article deleted' }));
                 } else {
                     res.writeHead(404);
                     return res.end(JSON.stringify({ error: 'Article not found' }));

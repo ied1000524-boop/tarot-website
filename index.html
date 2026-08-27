@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystical Tarot Reading | by Priyanshu Dhyani - Certified Tarot Reading Professional</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Seek clarity, discover deeper insights, and understand the path ahead with Priyanshu Dhyani, Certified Tarot Reading Professional. Professional, light-themed, intuitive tarot readings.">
+    <meta name="author" content="Priyanshu Dhyani">
+
+    <!-- Google Fonts: Playfair Display (Serif) & Plus Jakarta Sans (Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'soft-cream': '#FBF6E9',
+                        'deep-teal': '#1F3F51',
+                        'peacock-teal': '#0AB5A6',
+                        'lotus-coral': '#E06C5F',
+                        'gold-dust': '#D8B155',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'content': '1280px',
+                        'article': '800px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom scrollbar & luxury accents */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FBF6E9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0AB5A6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1F3F51;
+        }
+
+        .gold-border {
+            border: 1px solid #D8B155;
+        }
+        .gold-border-glow {
+            border: 1.5px solid #D8B155;
+            box-shadow: 0 4px 20px -2px rgba(216, 177, 85, 0.25);
+        }
+        
+        .card-hover-effect {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(31, 63, 81, 0.08);
+        }
+
+        /* Published Article Typography & Spacing Rules */
+        .article-body p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            color: #1F3F51;
+        }
+        .article-body h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.15rem;
+            font-weight: 700;
+            color: #1F3F51;
+            margin-top: 2rem;
+            margin-bottom: 0.85rem;
+            line-height: 1.3;
+        }
+        .article-body h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1F3F51;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.35;
+        }
+        .article-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1F3F51;
+            margin-top: 1.5rem;
+            margin-bottom: 0.6rem;
+            line-height: 1.4;
+        }
+        .article-body h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1F3F51;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .article-body ul {
+            list-style-type: disc;
+            padding-left: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .article-body ol {
+            list-style-type: decimal;
+            padding-left: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .article-body li {
+            margin-bottom: 0.4rem;
+            line-height: 1.7;
+        }
+        .article-body blockquote {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-left: 4px solid #D8B155;
+            background-color: rgba(251, 246, 233, 0.7);
+            border-top-right-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #1F3F51;
+        }
+        .article-body a {
+            color: #0AB5A6;
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .article-body a:hover {
+            color: #1F3F51;
+        }
+        .article-body figure {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .article-body figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            border: 1px solid #D8B155;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 12px -2px rgba(31, 63, 81, 0.08);
+        }
+        .article-body figcaption {
+            font-size: 0.75rem;
+            color: rgba(31, 63, 81, 0.7);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        .article-body hr {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border: 0;
+            border-top: 1px solid rgba(216, 177, 85, 0.5);
+        }
+
+        /* WYSIWYG Editable Area Focus Reset */
+        #editor-wysiwyg:empty:before {
+            content: attr(placeholder);
+            color: rgba(31, 63, 81, 0.4);
+            pointer-events: none;
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-soft-cream text-deep-teal font-sans antialiased selection:bg-peacock-teal selection:text-white min-h-screen flex flex-col">
+
+    <!-- ==================== 1. NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 bg-soft-cream/95 backdrop-blur-md border-b border-gold-dust/30 transition-all duration-300">
+        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo & Brand Title -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <img src="/logo%20tarot.jpeg" alt="Mystical Tarot Reading Logo" class="w-11 h-11 rounded-full object-cover border-2 border-gold-dust shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-lg sm:text-xl text-deep-teal tracking-wide leading-tight group-hover:text-peacock-teal transition-colors">MYSTICAL TAROT</span>
+                    <span class="text-[10px] tracking-widest text-peacock-teal font-semibold uppercase">by Priyanshu Dhyani</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+                <a href="#home" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">HOME</a>
+                <a href="#about" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">ABOUT</a>
+                <a href="#readings" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">READINGS</a>
+                <a href="#plans" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">PLANS</a>
+                <a href="#how-to-book" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">HOW TO BOOK</a>
+                <a href="#blog" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">BLOG</a>
+                <a href="#contact" class="text-deep-teal hover:text-peacock-teal transition-colors py-1">CONTACT</a>
+            </nav>
+
+            <!-- Desktop Right CTA -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#readings" class="bg-lotus-coral hover:bg-lotus-coral/90 text-white px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wider shadow-sm transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+                    BOOK A READING
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="md:hidden text-deep-teal hover:text-peacock-teal p-2 focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-soft-cream border-b border-gold-dust/30 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#home" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">HOME</a>
+            <a href="#about" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">ABOUT</a>
+            <a href="#readings" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">READINGS</a>
+            <a href="#plans" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">PLANS</a>
+            <a href="#how-to-book" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">HOW TO BOOK</a>
+            <a href="#blog" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">BLOG</a>
+            <a href="#contact" class="mobile-nav-link block text-deep-teal hover:text-peacock-teal font-medium py-2 px-3 rounded-md hover:bg-white/50">CONTACT</a>
+            <div class="pt-2">
+                <a href="#readings" class="mobile-nav-link block text-center bg-lotus-coral text-white py-3 rounded-lg font-semibold tracking-wider">
+                    BOOK A READING
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+
+        <!-- ==================== 2. HERO SECTION ==================== -->
+        <section id="home" class="relative py-16 lg:py-24 overflow-hidden border-b border-gold-dust/20">
+            <!-- Subtle Gold Accent Background Glows -->
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-dust/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-peacock-teal/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/80 border border-gold-dust/40 px-4 py-1.5 rounded-full text-xs font-semibold text-peacock-teal tracking-wider uppercase shadow-xs">
+                            <i class="fa-solid fa-certificate text-gold-dust"></i>
+                            <span>Certified Tarot Reading Professional</span>
+                        </div>
+
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-deep-teal tracking-tight leading-tight">
+                            MYSTICAL TAROT READING
+                        </h1>
+
+                        <p class="font-serif text-xl sm:text-2xl text-peacock-teal italic">
+                            by Priyanshu Dhyani
+                        </p>
+
+                        <p class="text-base sm:text-lg text-deep-teal/80 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Seek clarity. Discover deeper insights. Understand the path ahead.
+                        </p>
+
+                        <!-- Hero CTAs -->
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="#readings" class="w-full sm:w-auto text-center bg-lotus-coral hover:bg-lotus-coral/90 text-white px-8 py-3.5 rounded-lg font-semibold tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                                BOOK YOUR READING
+                            </a>
+                            <a href="#readings" class="w-full sm:w-auto text-center border-2 border-deep-teal/20 hover:border-peacock-teal text-deep-teal hover:text-peacock-teal bg-white/60 hover:bg-white px-8 py-3.5 rounded-lg font-semibold tracking-wider transition-all">
+                                EXPLORE READINGS
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual Card -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-sm bg-white p-6 rounded-2xl gold-border-glow shadow-xl text-center space-y-4">
+                            <div class="w-20 h-20 mx-auto rounded-full bg-soft-cream p-1 border-2 border-gold-dust">
+                                <img src="/logo%20tarot.jpeg" alt="Mystical Tarot Emblem" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="font-serif text-xl font-bold text-deep-teal">Intuitive & Personal</h3>
+                                <p class="text-xs text-peacock-teal font-semibold tracking-widest uppercase">Certified Professional Reader</p>
+                            </div>
+                            <div class="border-t border-gold-dust/30 pt-4 text-sm text-deep-teal/80 italic">
+                                "Unveiling perspective and direction through compassionate, structured tarot guidance."
+                            </div>
+                            <div class="pt-2 flex justify-center gap-3 text-gold-dust text-xs">
+                                <i class="fa-solid fa-sun"></i>
+                                <i class="fa-solid fa-moon"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 3. ABOUT SECTION ("MEET YOUR TAROT READER") ==================== -->
+        <section id="about" class="py-16 lg:py-24 bg-white/60 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Official Face Photo of Priyanshu Dhyani -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative group max-w-xs sm:max-w-sm w-full">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-gold-dust/40 to-peacock-teal/40 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                            <div class="relative bg-white p-2 rounded-2xl gold-border shadow-lg overflow-hidden">
+                                <img src="/priyanshu%20dhyani%20face%20photo.jpeg" alt="Priyanshu Dhyani - Certified Tarot Reading Professional" class="w-full h-auto max-h-[460px] object-cover rounded-xl shadow-inner">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Biography & Credentials -->
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">ABOUT THE READER</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                                MEET YOUR TAROT READER
+                            </h2>
+                            <p class="font-serif text-2xl text-deep-teal font-semibold">
+                                Priyanshu Dhyani
+                            </p>
+                            <p class="text-sm font-semibold text-peacock-teal flex items-center gap-2">
+                                <i class="fa-solid fa-award text-gold-dust"></i>
+                                Certified Tarot Reading Professional
+                            </p>
+                        </div>
+
+                        <div class="w-16 h-0.5 bg-gold-dust"></div>
+
+                        <p class="text-base sm:text-lg text-deep-teal/90 leading-relaxed font-normal">
+                            "Tarot is a powerful tool for reflection, clarity, and deeper understanding. Through intuitive tarot guidance, Priyanshu Dhyani helps seekers explore their questions, understand patterns, and gain meaningful perspective on their journey."
+                        </p>
+
+                        <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-soft-cream/80 border border-gold-dust/30 flex items-start gap-3">
+                                <i class="fa-solid fa-eye text-peacock-teal text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-deep-teal text-sm">Clarity & Perspective</h4>
+                                    <p class="text-xs text-deep-teal/70">Structured insights tailored to your specific life questions.</p>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-soft-cream/80 border border-gold-dust/30 flex items-start gap-3">
+                                <i class="fa-solid fa-shield-halved text-peacock-teal text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-deep-teal text-sm">Strict Confidentiality</h4>
+                                    <p class="text-xs text-deep-teal/70">Every reading is conducted in a safe, compassionate space.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 4. TAROT READINGS / SERVICES ==================== -->
+        <section id="readings" class="py-16 lg:py-24 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">AVAILABLE SERVICES</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                        TAROT READINGS
+                    </h2>
+                    <p class="text-base text-deep-teal/80">
+                        Choose the reading that best suits your needs.
+                    </p>
+                    <div class="w-16 h-0.5 bg-gold-dust mx-auto"></div>
+                </div>
+
+                <!-- 4 Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                    
+                    <!-- Service 1 -->
+                    <div class="bg-white rounded-2xl p-6 gold-border shadow-sm flex flex-col justify-between card-hover-effect">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-soft-cream flex items-center justify-center text-peacock-teal text-xl border border-gold-dust/40">
+                                <i class="fa-solid fa-circle-question"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                ONE QUESTION
+                            </h3>
+                            <div class="text-3xl font-bold text-deep-teal font-serif">
+                                ₹50
+                            </div>
+                            <p class="text-sm text-deep-teal/80 leading-relaxed min-h-[50px]">
+                                Ask one question and receive focused tarot guidance.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="openBookingModal('ONE QUESTION', '₹50')" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg transition-colors text-sm tracking-wider shadow-xs">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-white rounded-2xl p-6 gold-border shadow-sm flex flex-col justify-between card-hover-effect">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-soft-cream flex items-center justify-center text-peacock-teal text-xl border border-gold-dust/40">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                HALF HOUR READING
+                            </h3>
+                            <div class="text-3xl font-bold text-deep-teal font-serif">
+                                ₹150
+                            </div>
+                            <p class="text-sm text-deep-teal/80 leading-relaxed min-h-[50px]">
+                                A half-hour tarot reading with a remedy.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="openBookingModal('HALF HOUR READING', '₹150')" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg transition-colors text-sm tracking-wider shadow-xs">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-white rounded-2xl p-6 gold-border shadow-sm flex flex-col justify-between card-hover-effect">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-soft-cream flex items-center justify-center text-peacock-teal text-xl border border-gold-dust/40">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                DETAILED READING WITH PERSONAL PDF
+                            </h3>
+                            <div class="text-3xl font-bold text-deep-teal font-serif">
+                                ₹500
+                            </div>
+                            <p class="text-sm text-deep-teal/80 leading-relaxed min-h-[50px]">
+                                A detailed tarot reading accompanied by a personalized PDF.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="openBookingModal('DETAILED READING WITH PERSONAL PDF', '₹500')" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg transition-colors text-sm tracking-wider shadow-xs">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-white rounded-2xl p-6 gold-border shadow-sm flex flex-col justify-between card-hover-effect">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-soft-cream flex items-center justify-center text-peacock-teal text-xl border border-gold-dust/40">
+                                <i class="fa-solid fa-infinity"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                AKASHIC PAST LIFE READING
+                            </h3>
+                            <div class="text-3xl font-bold text-deep-teal font-serif">
+                                ₹1,100
+                            </div>
+                            <p class="text-sm text-deep-teal/80 leading-relaxed min-h-[50px]">
+                                Akashic past-life reading with a personalized PDF and meditation.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="openBookingModal('AKASHIC PAST LIFE READING', '₹1,100')" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg transition-colors text-sm tracking-wider shadow-xs">
+                                BOOK NOW
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 5. LONG-TERM GUIDANCE / PLANS ==================== -->
+        <section id="plans" class="py-16 lg:py-24 bg-white/60 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">SUSTAINED REFLECTION</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                        LONG-TERM GUIDANCE
+                    </h2>
+                    <p class="text-base text-deep-teal/80">
+                        Ongoing guidance for continuous growth and clarity.
+                    </p>
+                    <div class="w-16 h-0.5 bg-gold-dust mx-auto"></div>
+                </div>
+
+                <!-- 2 Plans Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    
+                    <!-- Half-Year Plan -->
+                    <div class="bg-white rounded-2xl p-8 gold-border shadow-sm flex flex-col justify-between card-hover-effect relative">
+                        <div class="space-y-4">
+                            <span class="text-xs font-bold text-peacock-teal uppercase tracking-widest">6 MONTH DURATION</span>
+                            <h3 class="font-serif text-2xl font-bold text-deep-teal">
+                                HALF-YEAR PLAN
+                            </h3>
+                            <div class="text-4xl font-bold text-deep-teal font-serif">
+                                ₹2,499
+                            </div>
+                            <p class="text-base text-deep-teal/80 pt-2">
+                                6-Month Tarot Reading Plan
+                            </p>
+                        </div>
+                        <div class="pt-8">
+                            <button onclick="openBookingModal('HALF-YEAR PLAN', '₹2,499')" class="w-full border-2 border-deep-teal hover:bg-deep-teal hover:text-white text-deep-teal font-semibold py-3.5 rounded-lg transition-colors text-sm tracking-wider">
+                                CHOOSE PLAN
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1-Year Subscription Plan (Visually Prominent) -->
+                    <div class="bg-white rounded-2xl p-8 gold-border-glow shadow-md flex flex-col justify-between card-hover-effect relative border-2 border-gold-dust">
+                        <!-- Most Popular Badge -->
+                        <div class="absolute -top-3.5 right-6 bg-gold-dust text-deep-teal font-bold px-4 py-1 rounded-full text-xs uppercase tracking-widest shadow-xs">
+                            MOST POPULAR
+                        </div>
+
+                        <div class="space-y-4">
+                            <span class="text-xs font-bold text-peacock-teal uppercase tracking-widest">12 MONTH DURATION</span>
+                            <h3 class="font-serif text-2xl font-bold text-deep-teal">
+                                1-YEAR SUBSCRIPTION PLAN
+                            </h3>
+                            <div class="text-4xl font-bold text-deep-teal font-serif">
+                                ₹4,999
+                            </div>
+                            <p class="text-base text-deep-teal/80 pt-2">
+                                12-Month Tarot Reading Plan
+                            </p>
+                        </div>
+                        <div class="pt-8">
+                            <button onclick="openBookingModal('1-YEAR SUBSCRIPTION PLAN', '₹4,999')" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3.5 rounded-lg transition-colors text-sm tracking-wider shadow-sm">
+                                CHOOSE PLAN
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 6. HOW TO BOOK ==================== -->
+        <section id="how-to-book" class="py-16 lg:py-24 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">SIMPLE PROCESS</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                        HOW TO BOOK
+                    </h2>
+                    <div class="w-16 h-0.5 bg-gold-dust mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Step 1 -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs space-y-4 text-center">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal font-serif font-bold text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            01
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-deep-teal">
+                            CHOOSE YOUR READING
+                        </h3>
+                        <p class="text-sm text-deep-teal/80 leading-relaxed">
+                            Select the tarot service or plan that suits your needs.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs space-y-4 text-center">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal font-serif font-bold text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            02
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-deep-teal">
+                            MAKE PAYMENT
+                        </h3>
+                        <p class="text-sm text-deep-teal/80 leading-relaxed">
+                            Use the provided UPI ID to complete payment.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs space-y-4 text-center">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal font-serif font-bold text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            03
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-deep-teal">
+                            CONTACT TO CONFIRM
+                        </h3>
+                        <p class="text-sm text-deep-teal/80 leading-relaxed">
+                            After payment, contact Priyanshu to arrange your reading appointment.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 7. PAYMENT SECTION ==================== -->
+        <section id="payment" class="py-16 lg:py-24 bg-white/60 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 sm:p-12 gold-border-glow shadow-md text-center space-y-8">
+                    
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">DIRECT UPI PAYMENT</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                            SECURE YOUR READING
+                        </h2>
+                        <p class="text-sm sm:text-base text-deep-teal/80">
+                            Use the official UPI ID below to pay securely through any UPI enabled payment application (Google Pay, PhonePe, Paytm, BHIM, etc.).
+                        </p>
+                    </div>
+
+                    <!-- Display Exact UPI ID Box -->
+                    <div class="bg-soft-cream p-6 rounded-2xl gold-border inline-block w-full max-w-md space-y-4">
+                        <div class="text-xs font-semibold text-deep-teal/70 uppercase tracking-wider">OFFICIAL UPI PAYMENT ID</div>
+                        
+                        <div class="flex items-center justify-center gap-3">
+                            <span id="main-upi-id" class="font-mono text-xl sm:text-2xl font-bold text-deep-teal tracking-wide">
+                                8630043913@ybl
+                            </span>
+                        </div>
+
+                        <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+                            <button onclick="copyUpiId('8630043913@ybl')" class="bg-peacock-teal hover:bg-peacock-teal/90 text-white px-5 py-2.5 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>COPY UPI ID</span>
+                            </button>
+
+                            <a href="upi://pay?pa=8630043913@ybl&pn=Priyanshu%20Dhyani&cu=INR" class="border border-deep-teal text-deep-teal hover:bg-deep-teal hover:text-white px-5 py-2.5 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                                <span>PAY VIA UPI APP</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-sm text-deep-teal/80 italic font-medium">
+                        "After completing your payment, contact us to confirm your appointment."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 8. TAROT INSIGHTS / BLOG SECTION ==================== -->
+        <section id="blog" class="py-16 lg:py-24 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Blog Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div class="space-y-3 max-w-2xl">
+                        <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">ARTICLES & WISDOM</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                            TAROT INSIGHTS
+                        </h2>
+                        <p class="text-base text-deep-teal/80 italic">
+                            "Explore insights, reflections and guidance from Priyanshu Dhyani."
+                        </p>
+                    </div>
+
+                    <!-- Search and Category Filters -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative">
+                            <input type="text" id="blog-search-input" onkeyup="filterPublicBlogs()" placeholder="Search articles..." class="w-full sm:w-64 bg-white border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal pl-10">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-deep-teal/40 text-sm"></i>
+                        </div>
+                        <select id="blog-category-select" onchange="filterPublicBlogs()" class="bg-white border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal">
+                            <option value="ALL">All Categories</option>
+                            <option value="Tarot Guidance">Tarot Guidance</option>
+                            <option value="Tarot Education">Tarot Education</option>
+                            <option value="Spiritual Insights">Spiritual Insights</option>
+                            <option value="Self-Reflection">Self-Reflection</option>
+                            <option value="General Insights">General Insights</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Featured Post Container (If Any) -->
+                <div id="featured-blog-container" class="mb-10"></div>
+
+                <!-- Blog Cards Grid (Published Articles Only) -->
+                <div id="public-blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- Blog Empty State -->
+                <div id="blog-empty-state" class="hidden text-center py-16 bg-white/60 rounded-2xl gold-border">
+                    <i class="fa-solid fa-feather-pointed text-4xl text-peacock-teal/40 mb-3"></i>
+                    <h3 class="font-serif text-xl font-bold text-deep-teal mb-1">TAROT INSIGHTS</h3>
+                    <p class="text-sm text-deep-teal/70">New insights and articles will be published here soon.</p>
+                </div>
+
+                <!-- Discreet Admin Login Entry Point -->
+                <div class="mt-16 text-center border-t border-gold-dust/20 pt-8">
+                    <button onclick="openAdminLoginModal()" class="text-xs text-deep-teal/50 hover:text-peacock-teal transition-colors tracking-widest uppercase">
+                        <i class="fa-solid fa-lock text-[10px] mr-1"></i> Admin Login
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== 9. BOOKING / CONTACT SECTION ==================== -->
+        <section id="contact" class="py-16 lg:py-24 bg-white/60 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">GET IN TOUCH</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                        READY TO BEGIN YOUR READING?
+                    </h2>
+                    <p class="text-base text-deep-teal/80">
+                        Choose your reading, complete the payment, and contact Priyanshu to schedule your appointment.
+                    </p>
+                    <div class="w-16 h-0.5 bg-gold-dust mx-auto"></div>
+                </div>
+
+                <!-- Contact Grid Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    
+                    <!-- Call / WhatsApp -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs text-center space-y-4 card-hover-effect">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-deep-teal">PHONE / WHATSAPP</h3>
+                        <p class="font-mono text-base font-semibold text-deep-teal">+91 8630043913</p>
+                        <a href="https://wa.me/918630043913" target="_blank" class="inline-block w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg text-sm tracking-wider transition-colors">
+                            CALL / WHATSAPP
+                        </a>
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs text-center space-y-4 card-hover-effect">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-deep-teal">INSTAGRAM</h3>
+                        <p class="font-mono text-base font-semibold text-deep-teal">@r.mysticaltarot</p>
+                        <a href="https://instagram.com/r.mysticaltarot" target="_blank" class="inline-block w-full border border-deep-teal hover:bg-deep-teal hover:text-white text-deep-teal font-semibold py-3 rounded-lg text-sm tracking-wider transition-colors">
+                            INSTAGRAM
+                        </a>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-white p-8 rounded-2xl gold-border shadow-xs text-center space-y-4 card-hover-effect">
+                        <div class="w-14 h-14 rounded-full bg-soft-cream text-peacock-teal text-2xl flex items-center justify-center mx-auto border border-gold-dust/40">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-deep-teal">EMAIL</h3>
+                        <p class="font-mono text-sm font-semibold text-deep-teal truncate">priyanshudhyani165@gmail.com</p>
+                        <a href="mailto:priyanshudhyani165@gmail.com" class="inline-block w-full border border-deep-teal hover:bg-deep-teal hover:text-white text-deep-teal font-semibold py-3 rounded-lg text-sm tracking-wider transition-colors">
+                            EMAIL
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 10. FAQ SECTION ==================== -->
+        <section id="faq" class="py-16 lg:py-24 border-b border-gold-dust/20">
+            <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+                    <span class="text-xs font-bold uppercase tracking-widest text-peacock-teal">FREQUENTLY ASKED</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal">
+                        FREQUENTLY ASKED QUESTIONS
+                    </h2>
+                    <div class="w-16 h-0.5 bg-gold-dust mx-auto"></div>
+                </div>
+
+                <div class="max-w-3xl mx-auto space-y-4">
+                    
+                    <!-- Question 1 -->
+                    <div class="bg-white rounded-xl gold-border overflow-hidden">
+                        <button onclick="toggleFaq(1)" class="w-full px-6 py-4 text-left font-serif text-lg font-bold text-deep-teal flex items-center justify-between focus:outline-none">
+                            <span>How do I book a reading?</span>
+                            <i id="faq-icon-1" class="fa-solid fa-chevron-down text-peacock-teal text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-ans-1" class="hidden px-6 pb-5 text-sm text-deep-teal/80 leading-relaxed border-t border-gold-dust/20 pt-3">
+                            Choose a service, make the payment using the provided UPI ID, and contact Priyanshu to confirm your appointment.
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white rounded-xl gold-border overflow-hidden">
+                        <button onclick="toggleFaq(2)" class="w-full px-6 py-4 text-left font-serif text-lg font-bold text-deep-teal flex items-center justify-between focus:outline-none">
+                            <span>How can I contact the tarot reader?</span>
+                            <i id="faq-icon-2" class="fa-solid fa-chevron-down text-peacock-teal text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-ans-2" class="hidden px-6 pb-5 text-sm text-deep-teal/80 leading-relaxed border-t border-gold-dust/20 pt-3">
+                            You can contact Priyanshu at +91 8630043913, through Instagram @r.mysticaltarot, or by email at priyanshudhyani165@gmail.com.
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white rounded-xl gold-border overflow-hidden">
+                        <button onclick="toggleFaq(3)" class="w-full px-6 py-4 text-left font-serif text-lg font-bold text-deep-teal flex items-center justify-between focus:outline-none">
+                            <span>What payment method is available?</span>
+                            <i id="faq-icon-3" class="fa-solid fa-chevron-down text-peacock-teal text-sm transition-transform duration-300"></i>
+                        </button>
+                        <div id="faq-ans-3" class="hidden px-6 pb-5 text-sm text-deep-teal/80 leading-relaxed border-t border-gold-dust/20 pt-3">
+                            Payment can be made using the UPI ID: <strong class="text-deep-teal font-mono">8630043913@ybl</strong>.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 11. DISCLAIMER ==================== -->
+        <section class="py-8 bg-soft-cream border-b border-gold-dust/20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <p class="text-xs text-deep-teal/60 leading-relaxed italic">
+                    "Tarot readings are intended for personal reflection, spiritual guidance, and entertainment. They should not be considered a substitute for professional medical, legal, financial, or mental-health advice. No outcome is guaranteed."
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==================== 12. FOOTER ==================== -->
+    <footer class="bg-soft-cream border-t border-gold-dust/30 py-12 text-deep-teal">
+        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pb-8 border-b border-gold-dust/20">
+                
+                <!-- Brand Info -->
+                <div class="md:col-span-6 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <img src="/logo%20tarot.jpeg" alt="Logo" class="w-10 h-10 rounded-full object-cover border border-gold-dust">
+                        <div>
+                            <span class="font-serif font-bold text-lg text-deep-teal block leading-tight">MYSTICAL TAROT READING</span>
+                            <span class="text-xs text-peacock-teal font-medium">by Priyanshu Dhyani</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-deep-teal/80 font-medium">
+                        Certified Tarot Reading Professional
+                    </p>
+                </div>
+
+                <!-- Contact Links -->
+                <div class="md:col-span-3 space-y-2 text-xs">
+                    <span class="font-bold uppercase tracking-wider text-peacock-teal block mb-2">CONTACT</span>
+                    <p class="font-mono text-deep-teal">+91 8630043913</p>
+                    <p class="text-deep-teal">@r.mysticaltarot</p>
+                    <p class="text-deep-teal truncate">priyanshudhyani165@gmail.com</p>
+                </div>
+
+                <!-- Quick Navigation -->
+                <div class="md:col-span-3 space-y-2 text-xs">
+                    <span class="font-bold uppercase tracking-wider text-peacock-teal block mb-2">NAVIGATION</span>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1">
+                        <a href="#home" class="hover:text-peacock-teal transition-colors">Home</a>
+                        <a href="#about" class="hover:text-peacock-teal transition-colors">About</a>
+                        <a href="#readings" class="hover:text-peacock-teal transition-colors">Readings</a>
+                        <a href="#plans" class="hover:text-peacock-teal transition-colors">Plans</a>
+                        <a href="#blog" class="hover:text-peacock-teal transition-colors">Blog</a>
+                        <a href="#how-to-book" class="hover:text-peacock-teal transition-colors">How to Book</a>
+                        <a href="#contact" class="hover:text-peacock-teal transition-colors">Contact</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-deep-teal/60 gap-4">
+                <p>© 2026 Mystical Tarot Reading. All rights reserved.</p>
+                <p>Designed for Priyanshu Dhyani</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== MODALS & DIALOGS ==================== -->
+
+    <!-- 1. SERVICE BOOKING MODAL -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-deep-teal/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 gold-border-glow relative shadow-2xl space-y-6">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-deep-teal/40 hover:text-deep-teal text-xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold text-peacock-teal uppercase tracking-widest">BOOKING APPOINTMENT</span>
+                <h3 id="modal-service-title" class="font-serif text-2xl font-bold text-deep-teal"></h3>
+                <div id="modal-service-price" class="text-3xl font-serif font-bold text-lotus-coral"></div>
+            </div>
+
+            <div class="bg-soft-cream p-4 rounded-xl gold-border text-center space-y-3">
+                <p class="text-xs font-semibold text-deep-teal/70 uppercase">UPI Payment ID</p>
+                <p class="font-mono text-lg font-bold text-deep-teal">8630043913@ybl</p>
+                <button onclick="copyUpiId('8630043913@ybl')" class="w-full bg-peacock-teal hover:bg-peacock-teal/90 text-white font-medium py-2 rounded-lg text-xs transition-colors">
+                    Copy UPI ID
+                </button>
+            </div>
+
+            <div class="text-xs text-deep-teal/80 text-center leading-relaxed">
+                1. Copy the UPI ID & make payment of <span id="modal-confirm-price" class="font-bold"></span> via your payment app.<br>
+                2. Click below to share payment confirmation & book your slot.
+            </div>
+
+            <div class="space-y-2">
+                <a id="modal-whatsapp-btn" href="#" target="_blank" class="w-full bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold py-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>CONFIRM ON WHATSAPP</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 2. PUBLIC BLOG ARTICLE READER MODAL / VIEW (Controlled ~760px-820px Reading Width) -->
+    <div id="article-modal" class="fixed inset-0 z-50 hidden bg-deep-teal/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-soft-cream rounded-3xl max-w-article w-full p-6 sm:p-10 gold-border-glow relative shadow-2xl my-8 max-h-[90vh] overflow-y-auto space-y-8">
+            <button onclick="closeArticleModal()" class="absolute top-6 right-6 text-deep-teal/60 hover:text-deep-teal text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-4">
+                <span id="article-view-category" class="inline-block bg-peacock-teal/10 text-peacock-teal font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider"></span>
+                <h1 id="article-view-title" class="font-serif text-3xl sm:text-4xl font-bold text-deep-teal leading-tight"></h1>
+                <div class="flex items-center gap-4 text-xs text-deep-teal/70 pb-4 border-b border-gold-dust/30">
+                    <span class="font-semibold text-deep-teal">BY PRIYANSHU DHYANI</span>
+                    <span>•</span>
+                    <span id="article-view-date"></span>
+                </div>
+            </div>
+
+            <div id="article-view-image-container" class="rounded-2xl overflow-hidden gold-border max-h-96">
+                <img id="article-view-image" src="" alt="" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Article Body Content (Rich Editorial Formatting) -->
+            <div id="article-view-content" class="article-body font-sans">
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="bg-white p-8 rounded-2xl gold-border text-center space-y-4 mt-8">
+                <h3 class="font-serif text-2xl font-bold text-deep-teal">READY FOR A PERSONAL READING?</h3>
+                <p class="text-sm text-deep-teal/80">Explore the available tarot readings and choose the session that suits you.</p>
+                <a href="#readings" onclick="closeArticleModal()" class="inline-block bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold px-8 py-3 rounded-lg text-sm tracking-wider transition-colors">
+                    BOOK YOUR READING
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 3. BLOG ADMIN LOGIN MODAL -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden bg-deep-teal/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 gold-border-glow relative shadow-2xl space-y-6">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-deep-teal/40 hover:text-deep-teal text-xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-soft-cream mx-auto flex items-center justify-center text-peacock-teal border border-gold-dust/40 text-xl">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-deep-teal">BLOG ADMIN LOGIN</h3>
+                <p class="text-xs text-deep-teal/70">Sign in to manage Mystical Tarot Reading articles.</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">EMAIL ADDRESS</label>
+                    <input type="email" id="admin-email" required value="priyanshudhyani165@gmail.com" class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">PASSWORD</label>
+                    <div class="relative">
+                        <input type="password" id="admin-password" required placeholder="Enter admin password" class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal pr-10">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3 text-deep-teal/50 text-xs">
+                            <i id="pwd-toggle-icon" class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="login-error-msg" class="hidden text-xs text-lotus-coral font-medium text-center"></div>
+
+                <button type="submit" class="w-full bg-peacock-teal hover:bg-peacock-teal/90 text-white font-semibold py-3 rounded-lg text-sm tracking-wider transition-colors shadow-xs">
+                    LOGIN
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- 4. BLOG ADMIN DASHBOARD MODAL / SCREEN -->
+    <div id="admin-dashboard-modal" class="fixed inset-0 z-50 hidden bg-soft-cream overflow-y-auto">
+        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            
+            <!-- Dashboard Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gold-dust/30 pb-6">
+                <div>
+                    <span class="text-xs font-bold text-peacock-teal uppercase tracking-widest">OWNER PUBLISHING PORTAL</span>
+                    <h1 class="font-serif text-3xl font-bold text-deep-teal">BLOG MANAGEMENT</h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="openArticleEditor()" class="bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold px-5 py-2.5 rounded-lg text-sm tracking-wider transition-colors shadow-xs">
+                        + CREATE NEW ARTICLE
+                    </button>
+                    <button onclick="handleAdminLogout()" class="border border-deep-teal/30 hover:bg-deep-teal hover:text-white text-deep-teal font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider transition-colors">
+                        LOG OUT
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-between bg-white p-4 rounded-xl gold-border">
+                <input type="text" id="admin-search-input" onkeyup="renderAdminTable()" placeholder="Search articles by title..." class="bg-soft-cream border border-gold-dust/40 rounded-lg px-4 py-2 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal sm:w-64">
+                
+                <div class="flex gap-3">
+                    <select id="admin-status-filter" onchange="renderAdminTable()" class="bg-soft-cream border border-gold-dust/40 rounded-lg px-3 py-2 text-xs text-deep-teal focus:outline-none">
+                        <option value="ALL">All Statuses</option>
+                        <option value="PUBLISHED">Published</option>
+                        <option value="DRAFT">Draft</option>
+                        <option value="UNPUBLISHED">Unpublished</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Articles Table -->
+            <div class="bg-white rounded-2xl gold-border shadow-xs overflow-x-auto">
+                <table class="w-full text-left text-sm text-deep-teal">
+                    <thead class="bg-soft-cream text-xs uppercase font-bold text-peacock-teal border-b border-gold-dust/30">
+                        <tr>
+                            <th class="p-4">Title</th>
+                            <th class="p-4">Category</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Date</th>
+                            <th class="p-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-articles-tbody" class="divide-y divide-gold-dust/20">
+                        <!-- Rendered dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 5. UPGRADED ARTICLE EDITOR MODAL WITH FULL RICH TEXT CMS TOOLBAR -->
+    <div id="article-editor-modal" class="fixed inset-0 z-50 hidden bg-soft-cream overflow-y-auto">
+        <div class="max-w-4xl mx-auto px-4 py-8 space-y-6">
+            
+            <div class="flex items-center justify-between border-b border-gold-dust/30 pb-4">
+                <h2 id="editor-heading" class="font-serif text-2xl font-bold text-deep-teal">CREATE NEW ARTICLE</h2>
+                <button onclick="closeArticleEditor()" class="text-deep-teal/60 hover:text-deep-teal text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="article-form" onsubmit="saveArticleForm(event)" class="space-y-6 bg-white p-6 sm:p-8 rounded-2xl gold-border shadow-sm">
+                <input type="hidden" id="editor-article-id">
+
+                <div>
+                    <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">ARTICLE TITLE</label>
+                    <input type="text" id="editor-title" required placeholder="Enter article title..." class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal font-serif font-bold">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">CATEGORY</label>
+                        <select id="editor-category" required class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal">
+                            <option value="Tarot Guidance">Tarot Guidance</option>
+                            <option value="Tarot Education">Tarot Education</option>
+                            <option value="Spiritual Insights">Spiritual Insights</option>
+                            <option value="Self-Reflection">Self-Reflection</option>
+                            <option value="General Insights">General Insights</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">FEATURED IMAGE URL</label>
+                        <input type="text" id="editor-image-url" placeholder="https://images.unsplash.com/..." class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2.5 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">SHORT EXCERPT</label>
+                    <textarea id="editor-excerpt" rows="2" required placeholder="Short summary for the public article card..." class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-4 py-2 text-sm text-deep-teal focus:outline-none focus:border-peacock-teal"></textarea>
+                </div>
+
+                <!-- ADVANCED WYSIWYG RICH TEXT EDITOR -->
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-semibold text-deep-teal uppercase">ARTICLE CONTENT (RICH TEXT EDITOR)</label>
+                        <span id="editor-autosave-status" class="text-[11px] text-peacock-teal font-medium flex items-center gap-1 opacity-0 transition-opacity">
+                            <i class="fa-solid fa-cloud-arrow-up text-[10px]"></i> <span>Auto-saved</span>
+                        </span>
+                    </div>
+
+                    <!-- Sticky Rich Text Toolbar -->
+                    <div class="sticky top-0 z-20 bg-soft-cream/95 backdrop-blur-xs border border-gold-dust/50 rounded-t-xl p-2 flex flex-wrap items-center gap-1.5 shadow-xs text-deep-teal">
+                        
+                        <!-- History (Undo/Redo) -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5">
+                            <button type="button" onclick="execCmd('undo')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal hover:text-peacock-teal" title="Undo (Ctrl+Z)"><i class="fa-solid fa-rotate-left"></i></button>
+                            <button type="button" onclick="execCmd('redo')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal hover:text-peacock-teal" title="Redo (Ctrl+Y)"><i class="fa-solid fa-rotate-right"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Format Dropdown -->
+                        <select onchange="execCmd('formatBlock', this.value); this.selectedIndex=0;" class="bg-white border border-gold-dust/30 rounded-lg px-2 py-1 text-xs text-deep-teal font-medium focus:outline-none">
+                            <option value="">Text Style</option>
+                            <option value="p">Paragraph</option>
+                            <option value="h1">Heading 1</option>
+                            <option value="h2">Heading 2</option>
+                            <option value="h3">Heading 3</option>
+                            <option value="h4">Heading 4</option>
+                        </select>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Basic Formatting -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5 gap-0.5">
+                            <button type="button" onclick="execCmd('bold')" class="p-1.5 hover:bg-soft-cream rounded text-xs font-bold text-deep-teal" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                            <button type="button" onclick="execCmd('italic')" class="p-1.5 hover:bg-soft-cream rounded text-xs italic text-deep-teal" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                            <button type="button" onclick="execCmd('underline')" class="p-1.5 hover:bg-soft-cream rounded text-xs underline text-deep-teal" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                            <button type="button" onclick="execCmd('strikeThrough')" class="p-1.5 hover:bg-soft-cream rounded text-xs line-through text-deep-teal" title="Strikethrough"><i class="fa-solid fa-strikethrough"></i></button>
+                            <button type="button" onclick="execCmd('superscript')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Superscript"><i class="fa-solid fa-superscript"></i></button>
+                            <button type="button" onclick="execCmd('subscript')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Subscript"><i class="fa-solid fa-subscript"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Colors -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5 gap-0.5">
+                            <button type="button" onclick="promptTextColor()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-peacock-teal" title="Text Color"><i class="fa-solid fa-palette"></i></button>
+                            <button type="button" onclick="promptHighlightColor()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-gold-dust" title="Text Highlight"><i class="fa-solid fa-highlighter"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Alignment -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5 gap-0.5">
+                            <button type="button" onclick="execCmd('justifyLeft')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+                            <button type="button" onclick="execCmd('justifyCenter')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
+                            <button type="button" onclick="execCmd('justifyRight')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Align Right"><i class="fa-solid fa-align-right"></i></button>
+                            <button type="button" onclick="execCmd('justifyFull')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Justify"><i class="fa-solid fa-align-justify"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Indentation & Lists -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5 gap-0.5">
+                            <button type="button" onclick="execCmd('outdent')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Decrease Indent"><i class="fa-solid fa-outdent"></i></button>
+                            <button type="button" onclick="execCmd('indent')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Increase Indent"><i class="fa-solid fa-indent"></i></button>
+                            <button type="button" onclick="execCmd('insertUnorderedList')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                            <button type="button" onclick="execCmd('insertOrderedList')" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Rich Components -->
+                        <div class="flex items-center bg-white border border-gold-dust/30 rounded-lg p-0.5 gap-0.5">
+                            <button type="button" onclick="insertBlockquote()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Insert Quote"><i class="fa-solid fa-quote-left"></i></button>
+                            <button type="button" onclick="insertCustomLink()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-peacock-teal" title="Insert Link"><i class="fa-solid fa-link"></i></button>
+                            <button type="button" onclick="insertCustomImage()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Insert Image with Caption"><i class="fa-regular fa-image"></i></button>
+                            <button type="button" onclick="insertYouTubeEmbed()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-lotus-coral" title="Insert YouTube Video"><i class="fa-brands fa-youtube"></i></button>
+                            <button type="button" onclick="insertCustomTable()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal" title="Insert Table"><i class="fa-solid fa-table"></i></button>
+                            <button type="button" onclick="insertHorizontalRule()" class="p-1.5 hover:bg-soft-cream rounded text-xs text-gold-dust" title="Insert Divider"><i class="fa-solid fa-minus"></i></button>
+                        </div>
+
+                        <div class="w-px h-5 bg-gold-dust/30 mx-0.5"></div>
+
+                        <!-- Clear Formatting -->
+                        <button type="button" onclick="clearFormatting()" class="bg-white border border-gold-dust/30 p-1.5 hover:bg-soft-cream rounded text-xs text-deep-teal/70 hover:text-lotus-coral" title="Clear Formatting">
+                            <i class="fa-solid fa-font-slash"></i>
+                        </button>
+                    </div>
+
+                    <!-- WYSIWYG Editable Writing Area -->
+                    <div id="editor-wysiwyg" contenteditable="true" placeholder="Write and format article content here..." class="article-body bg-white border border-t-0 border-gold-dust/50 rounded-b-xl p-6 min-h-[380px] text-deep-teal text-base leading-relaxed focus:outline-none font-sans overflow-y-auto max-h-[500px]">
+                    </div>
+
+                    <!-- Editor Footer Status & Counts -->
+                    <div class="flex items-center justify-between text-[11px] text-deep-teal/60 pt-2 px-1">
+                        <div>WYSIWYG Rich Text Mode</div>
+                        <div class="flex gap-4">
+                            <span>Words: <strong id="editor-word-count" class="text-deep-teal font-mono">0</strong></span>
+                            <span>Characters: <strong id="editor-char-count" class="text-deep-teal font-mono">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">SEO TITLE</label>
+                        <input type="text" id="editor-seo-title" class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-3 py-2 text-xs text-deep-teal">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">META DESCRIPTION</label>
+                        <input type="text" id="editor-meta-desc" class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-3 py-2 text-xs text-deep-teal">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-deep-teal uppercase mb-1">URL SLUG</label>
+                        <input type="text" id="editor-slug" class="w-full bg-soft-cream border border-gold-dust/50 rounded-lg px-3 py-2 text-xs text-deep-teal">
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-gold-dust/30">
+                    <div class="flex gap-3">
+                        <button type="button" onclick="saveAsDraft()" class="bg-gray-200 hover:bg-gray-300 text-deep-teal font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider">
+                            SAVE DRAFT
+                        </button>
+                        <button type="button" onclick="previewArticle()" class="border border-peacock-teal text-peacock-teal hover:bg-peacock-teal hover:text-white font-semibold px-4 py-2.5 rounded-lg text-xs tracking-wider">
+                            PREVIEW
+                        </button>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="submit" class="bg-lotus-coral hover:bg-lotus-coral/90 text-white font-semibold px-6 py-2.5 rounded-lg text-xs tracking-wider shadow-xs">
+                            PUBLISH ARTICLE
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+
+    <!-- ==================== INTERACTIVE JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // --- 1. INITIAL DATA STORE (LOCAL STORAGE PERSISTED BLOG SYSTEM) ---
+        const DEFAULT_ARTICLES = [
+            {
+                id: 'art-1',
+                title: 'Understanding Tarot: A Mirror for Reflection and Clarity',
+                category: 'Tarot Education',
+                status: 'PUBLISHED',
+                date: '2026-08-20',
+                author: 'Priyanshu Dhyani',
+                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop',
+                excerpt: 'Discover how modern intuitive tarot acts as a compassionate psychological mirror, illuminating subtle life patterns.',
+                content: `<p class="text-lg leading-relaxed mb-6 font-normal">Tarot is far more than a mystical practice; it is a structured system of symbolic reflection. When we engage with the cards with open curiosity, we allow our subconscious insights and real feelings to take clear shape.</p>
+
+<h2 class="font-serif text-2xl font-bold text-deep-teal mt-8 mb-3">Understanding the Archetypes</h2>
+
+<p class="leading-relaxed mb-6">Each card represents a universal archetype or human experience. By exploring your current questions through tarot, Priyanshu Dhyani provides a grounded space to explore options, evaluate emotional dynamics, and regain personal alignment.</p>
+
+<blockquote class="my-6 pl-6 py-3 border-l-4 border-gold-dust bg-soft-cream/60 rounded-r-xl font-serif italic text-lg text-deep-teal">
+“Tarot does not dictate your future—it empowers you to shape it with clarity and conscious choice.”
+</blockquote>
+
+<h3 class="font-serif text-xl font-bold text-deep-teal mt-6 mb-3">Key Benefits of an Intuitive Session:</h3>
+
+<ul class="list-disc pl-6 space-y-2 mb-6">
+    <li><strong>Clarity on Complex Questions:</strong> Break down complicated life choices into manageable perspectives.</li>
+    <li><strong>Emotional Grounding:</strong> Identify hidden feelings and recurring behavioral patterns.</li>
+    <li><strong>Actionable Direction:</strong> Gain actionable insights for personal, career, and relationship growth.</li>
+</ul>
+
+<hr class="my-8 border-t border-gold-dust/40">`,
+                seoTitle: 'Understanding Tarot for Clarity',
+                metaDesc: 'Learn how tarot acts as a mirror for reflection.',
+                slug: 'understanding-tarot-clarity',
+                featured: true
+            },
+            {
+                id: 'art-2',
+                title: 'Navigating Life Transitions with Intuitive Guidance',
+                category: 'Tarot Guidance',
+                status: 'PUBLISHED',
+                date: '2026-08-15',
+                author: 'Priyanshu Dhyani',
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop',
+                excerpt: 'Major choices and life shifts can bring uncertainty. Here is how structured tarot sessions offer calm perspective.',
+                content: `<p class="text-lg leading-relaxed mb-6 font-normal">Life transitions—whether in career, relationships, or personal growth—often bring a mix of anticipation and doubt. During these pivotal moments, tarot offers an essential pause for deep listening and self-reflection.</p>
+
+<h2 class="font-serif text-2xl font-bold text-deep-teal mt-8 mb-3">Finding Stability Amid Change</h2>
+
+<p class="leading-relaxed mb-6">Rather than predicting rigid outcomes, an intuitive reading with Priyanshu Dhyani highlights the underlying energetic forces at play, giving you greater confidence in your decision-making.</p>
+
+<blockquote class="my-6 pl-6 py-3 border-l-4 border-gold-dust bg-soft-cream/60 rounded-r-xl font-serif italic text-lg text-deep-teal">
+“In every transition lies an opportunity for profound personal awakening and realignment.”
+</blockquote>
+
+<h3 class="font-serif text-xl font-bold text-deep-teal mt-6 mb-3">How to Prepare for Your Reading:</h3>
+
+<ol class="list-decimal pl-6 space-y-2 mb-6">
+    <li>Reflect on your core question with open curiosity.</li>
+    <li>Keep a journal handy for personal notes during the session.</li>
+    <li>Approach the experience with a calm, receptive mind.</li>
+</ol>`,
+                seoTitle: 'Navigating Life Transitions',
+                metaDesc: 'Tarot guidance during major life shifts.',
+                slug: 'navigating-life-transitions',
+                featured: false
+            }
+        ];
+
+        function getStoredArticles() {
+            const raw = localStorage.getItem('mystical_tarot_articles');
+            if (!raw) {
+                localStorage.setItem('mystical_tarot_articles', JSON.stringify(DEFAULT_ARTICLES));
+                return DEFAULT_ARTICLES;
+            }
+            return JSON.parse(raw);
+        }
+
+        function saveStoredArticles(articles) {
+            localStorage.setItem('mystical_tarot_articles', JSON.stringify(articles));
+            renderPublicBlog();
+            renderAdminTable();
+        }
+
+
+        // --- 2. NAVIGATION & UI TOGGLES ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // FAQ Accordion
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                ans.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+
+        // --- 3. COPY UPI & TOAST NOTIFICATION ---
+        function copyUpiId(id) {
+            navigator.clipboard.writeText(id).then(() => {
+                showToast(`UPI ID ${id} copied to clipboard!`);
+            }).catch(() => {
+                showToast(`UPI ID: ${id}`);
+            });
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-deep-teal text-white px-5 py-3 rounded-xl shadow-lg text-xs font-semibold flex items-center gap-2 border border-gold-dust pointer-events-auto transition-all transform translate-y-2';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-peacock-teal"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+
+        // --- 4. BOOKING MODAL HANDLER ---
+        function openBookingModal(serviceName, price) {
+            document.getElementById('modal-service-title').innerText = serviceName;
+            document.getElementById('modal-service-price').innerText = price;
+            document.getElementById('modal-confirm-price').innerText = price;
+            
+            const msg = encodeURIComponent(`Hello Priyanshu, I would like to book the "${serviceName}" (${price}). I have completed the payment via UPI.`);
+            document.getElementById('modal-whatsapp-btn').href = `https://wa.me/918630043913?text=${msg}`;
+            
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+
+        // --- 5. PUBLIC BLOG RENDERING ---
+        function renderPublicBlog() {
+            const articles = getStoredArticles();
+            const published = articles.filter(a => a.status === 'PUBLISHED');
+            const grid = document.getElementById('public-blog-grid');
+            const empty = document.getElementById('blog-empty-state');
+            const searchVal = (document.getElementById('blog-search-input')?.value || '').toLowerCase();
+            const catVal = document.getElementById('blog-category-select')?.value || 'ALL';
+
+            const filtered = published.filter(a => {
+                const textOnly = a.content.replace(/<[^>]*>?/gm, '');
+                const matchesSearch = a.title.toLowerCase().includes(searchVal) || textOnly.toLowerCase().includes(searchVal);
+                const matchesCat = catVal === 'ALL' || a.category === catVal;
+                return matchesSearch && matchesCat;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            } else {
+                empty.classList.add('hidden');
+            }
+
+            grid.innerHTML = filtered.map(art => `
+                <div class="bg-white rounded-2xl gold-border shadow-xs overflow-hidden flex flex-col justify-between card-hover-effect">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${art.image || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000'}" alt="${art.title}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-peacock-teal font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
+                                ${art.category}
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif text-xl font-bold text-deep-teal leading-snug">
+                                ${art.title}
+                            </h3>
+                            <p class="text-xs text-deep-teal/70 leading-relaxed line-clamp-3">
+                                ${art.excerpt}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-gold-dust/20 text-xs">
+                        <span class="text-deep-teal/60 font-medium">${art.date}</span>
+                        <button onclick="openArticleModal('${art.id}')" class="text-peacock-teal hover:text-deep-teal font-bold flex items-center gap-1 transition-colors">
+                            <span>READ ARTICLE</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterPublicBlogs() {
+            renderPublicBlog();
+        }
+
+        function openArticleModal(id) {
+            const articles = getStoredArticles();
+            const art = articles.find(a => a.id === id);
+            if (!art) return;
+
+            document.getElementById('article-view-category').innerText = art.category;
+            document.getElementById('article-view-title').innerText = art.title;
+            document.getElementById('article-view-date').innerText = art.date;
+            
+            const img = document.getElementById('article-view-image');
+            if (art.image) {
+                img.src = art.image;
+                document.getElementById('article-view-image-container').classList.remove('hidden');
+            } else {
+                document.getElementById('article-view-image-container').classList.add('hidden');
+            }
+
+            document.getElementById('article-view-content').innerHTML = art.content;
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('article-modal').classList.add('hidden');
+        }
+
+
+        // --- 6. ADMIN AUTHENTICATION & PORTAL ---
+        function openAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+        }
+        function closeAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        }
+
+        function togglePasswordVisibility() {
+            const pwd = document.getElementById('admin-password');
+            const icon = document.getElementById('pwd-toggle-icon');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const pwd = document.getElementById('admin-password').value;
+            const errMsg = document.getElementById('login-error-msg');
+
+            // Owner authorized credentials check
+            if (email === 'priyanshudhyani165@gmail.com' && pwd === 'Pr1y@nshu_Myst1c@l_T@r0t') {
+                sessionStorage.setItem('mystical_admin_authenticated', 'true');
+                closeAdminLoginModal();
+                openAdminDashboard();
+                showToast('Welcome back, Priyanshu!');
+            } else {
+                errMsg.innerText = 'Invalid password or email address. Authorized admin access only.';
+                errMsg.classList.remove('hidden');
+            }
+        }
+
+        function openAdminDashboard() {
+            if (sessionStorage.getItem('mystical_admin_authenticated') !== 'true') {
+                openAdminLoginModal();
+                return;
+            }
+            renderAdminTable();
+            document.getElementById('admin-dashboard-modal').classList.remove('hidden');
+        }
+
+        function handleAdminLogout() {
+            sessionStorage.removeItem('mystical_admin_authenticated');
+            document.getElementById('admin-dashboard-modal').classList.add('hidden');
+            showToast('Logged out safely.');
+        }
+
+
+        // --- 7. ADMIN DASHBOARD TABLE & ACTIONS ---
+        function renderAdminTable() {
+            const articles = getStoredArticles();
+            const searchVal = (document.getElementById('admin-search-input')?.value || '').toLowerCase();
+            const statusVal = document.getElementById('admin-status-filter')?.value || 'ALL';
+
+            const filtered = articles.filter(a => {
+                const matchesSearch = a.title.toLowerCase().includes(searchVal);
+                const matchesStatus = statusVal === 'ALL' || a.status === statusVal;
+                return matchesSearch && matchesStatus;
+            });
+
+            const tbody = document.getElementById('admin-articles-tbody');
+            tbody.innerHTML = filtered.map(art => {
+                let badgeClass = 'bg-gray-100 text-gray-700';
+                if (art.status === 'PUBLISHED') badgeClass = 'bg-emerald-100 text-emerald-800';
+                if (art.status === 'UNPUBLISHED') badgeClass = 'bg-amber-100 text-amber-800';
+
+                return `
+                    <tr class="hover:bg-soft-cream/50 transition-colors">
+                        <td class="p-4 font-bold text-deep-teal">${art.title}</td>
+                        <td class="p-4 text-xs font-semibold text-peacock-teal">${art.category}</td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${badgeClass}">
+                                ${art.status}
+                            </span>
+                        </td>
+                        <td class="p-4 text-xs text-deep-teal/60">${art.date}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="editArticle('${art.id}')" class="text-peacock-teal hover:underline text-xs font-bold">EDIT</button>
+                            <button onclick="togglePublishStatus('${art.id}')" class="text-deep-teal hover:underline text-xs font-bold">
+                                ${art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH'}
+                            </button>
+                            <button onclick="deleteArticle('${art.id}')" class="text-lotus-coral hover:underline text-xs font-bold">DELETE</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function togglePublishStatus(id) {
+            const articles = getStoredArticles();
+            const art = articles.find(a => a.id === id);
+            if (!art) return;
+
+            const action = art.status === 'PUBLISHED' ? 'UNPUBLISH' : 'PUBLISH';
+            if (confirm(`${action} THIS ARTICLE?`)) {
+                art.status = art.status === 'PUBLISHED' ? 'UNPUBLISHED' : 'PUBLISHED';
+                saveStoredArticles(articles);
+                showToast(`Article status updated to ${art.status}`);
+            }
+        }
+
+        function deleteArticle(id) {
+            if (confirm("DELETE THIS ARTICLE PERMANENTLY?")) {
+                let articles = getStoredArticles();
+                articles = articles.filter(a => a.id !== id);
+                saveStoredArticles(articles);
+                showToast("Article deleted permanently.");
+            }
+        }
+
+
+        // --- 8. ADVANCED WYSIWYG ARTICLE EDITOR ENGINE ---
+        const editorCanvas = document.getElementById('editor-wysiwyg');
+
+        function execCmd(cmd, value = null) {
+            document.execCommand(cmd, false, value);
+            editorCanvas.focus();
+            updateEditorCounts();
+            triggerAutosave();
+        }
+
+        function promptTextColor() {
+            const color = prompt("Enter Text Color (HEX or choose: #1F3F51 Deep Teal, #0AB5A6 Peacock Teal, #E06C5F Lotus Coral, #D8B155 Gold Dust):", "#0AB5A6");
+            if (color) {
+                execCmd('foreColor', color);
+            }
+        }
+
+        function promptHighlightColor() {
+            const color = prompt("Enter Highlight Color (HEX or choose: #FBF6E9 Soft Cream, #FEF9E7 Soft Gold, #E6F8F6 Soft Teal):", "#FEF9E7");
+            if (color) {
+                execCmd('hiliteColor', color);
+            }
+        }
+
+        function insertBlockquote() {
+            const quoteText = prompt("Enter Quote Text:", "Tarot is a mirror to your soul's wisdom.");
+            if (quoteText) {
+                const html = `<blockquote class="my-6 pl-6 py-3 border-l-4 border-gold-dust bg-soft-cream/60 rounded-r-xl font-serif italic text-lg text-deep-teal">“${quoteText}”</blockquote><p><br></p>`;
+                execCmd('insertHTML', html);
+            }
+        }
+
+        function insertCustomLink() {
+            const url = prompt("Enter Link URL:", "https://");
+            if (url && url !== "https://") {
+                const sel = window.getSelection().toString() || url;
+                const html = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-peacock-teal font-semibold underline hover:text-deep-teal">${sel}</a>`;
+                execCmd('insertHTML', html);
+            }
+        }
+
+        function insertCustomImage() {
+            const url = prompt("Enter Image URL:", "https://images.unsplash.com/...");
+            if (url) {
+                const alt = prompt("Enter Image Alt Text:", "Tarot visual") || "Tarot visual";
+                const caption = prompt("Enter Optional Image Caption:", "");
+                const figcaptionHtml = caption ? `<figcaption class="text-xs text-deep-teal/70 italic mt-2">${caption}</figcaption>` : '';
+                const html = `<figure class="my-6 text-center"><img src="${url}" alt="${alt}" class="max-w-full h-auto rounded-2xl gold-border shadow-xs mx-auto">${figcaptionHtml}</figure><p><br></p>`;
+                execCmd('insertHTML', html);
+            }
+        }
+
+        function insertYouTubeEmbed() {
+            const url = prompt("Enter YouTube Video URL (e.g. https://www.youtube.com/watch?v=... or https://youtu.be/...):");
+            if (url) {
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                const videoId = (match && match[2].length === 11) ? match[2] : null;
+
+                if (videoId) {
+                    const html = `<div class="aspect-video w-full rounded-2xl overflow-hidden gold-border my-6 shadow-md"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div><p><br></p>`;
+                    execCmd('insertHTML', html);
+                } else {
+                    alert("Invalid YouTube URL format. Please paste a valid YouTube video link.");
+                }
+            }
+        }
+
+        function insertCustomTable() {
+            const html = `<div class="overflow-x-auto my-6"><table class="w-full text-left text-sm border-collapse border border-gold-dust/40 rounded-xl overflow-hidden"><thead class="bg-soft-cream text-peacock-teal font-bold uppercase text-xs"><tr><th class="p-3 border border-gold-dust/30">Feature</th><th class="p-3 border border-gold-dust/30">Description</th></tr></thead><tbody><tr class="hover:bg-soft-cream/40"><td class="p-3 border border-gold-dust/30">Intuitive Reading</td><td class="p-3 border border-gold-dust/30">Personalized tarot guidance tailored to your query.</td></tr></tbody></table></div><p><br></p>`;
+            execCmd('insertHTML', html);
+        }
+
+        function insertHorizontalRule() {
+            execCmd('insertHorizontalRule');
+        }
+
+        function clearFormatting() {
+            execCmd('removeFormat');
+            execCmd('formatBlock', 'p');
+        }
+
+        function updateEditorCounts() {
+            const text = editorCanvas.innerText || '';
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const chars = text.length;
+
+            document.getElementById('editor-word-count').innerText = words;
+            document.getElementById('editor-char-count').innerText = chars;
+        }
+
+        let autosaveTimer = null;
+        function triggerAutosave() {
+            const statusBadge = document.getElementById('editor-autosave-status');
+            statusBadge.classList.remove('opacity-0');
+            clearTimeout(autosaveTimer);
+            autosaveTimer = setTimeout(() => {
+                statusBadge.classList.add('opacity-0');
+            }, 1500);
+        }
+
+        // Clean Microsoft Word / Google Docs copied formatting on paste
+        editorCanvas.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+            document.execCommand('insertText', false, text);
+            updateEditorCounts();
+        });
+
+        editorCanvas.addEventListener('input', () => {
+            updateEditorCounts();
+            triggerAutosave();
+        });
+
+
+        // --- 9. ARTICLE EDITOR FORM HANDLERS ---
+        function openArticleEditor(id = null) {
+            document.getElementById('article-form').reset();
+            document.getElementById('editor-article-id').value = '';
+            editorCanvas.innerHTML = '';
+
+            if (id) {
+                const articles = getStoredArticles();
+                const art = articles.find(a => a.id === id);
+                if (art) {
+                    document.getElementById('editor-heading').innerText = 'EDIT ARTICLE';
+                    document.getElementById('editor-article-id').value = art.id;
+                    document.getElementById('editor-title').value = art.title;
+                    document.getElementById('editor-category').value = art.category;
+                    document.getElementById('editor-image-url').value = art.image || '';
+                    document.getElementById('editor-excerpt').value = art.excerpt;
+                    editorCanvas.innerHTML = art.content;
+                    document.getElementById('editor-seo-title').value = art.seoTitle || '';
+                    document.getElementById('editor-meta-desc').value = art.metaDesc || '';
+                    document.getElementById('editor-slug').value = art.slug || '';
+                }
+            } else {
+                document.getElementById('editor-heading').innerText = 'CREATE NEW ARTICLE';
+                editorCanvas.innerHTML = '<p>Write your article here...</p>';
+            }
+
+            updateEditorCounts();
+            document.getElementById('article-editor-modal').classList.remove('hidden');
+        }
+
+        function closeArticleEditor() {
+            document.getElementById('article-editor-modal').classList.add('hidden');
+        }
+
+        function editArticle(id) {
+            openArticleEditor(id);
+        }
+
+        function saveArticleForm(e) {
+            e.preventDefault();
+            if (confirm("PUBLISH THIS ARTICLE?")) {
+                saveArticleData('PUBLISHED');
+            }
+        }
+
+        function saveAsDraft() {
+            saveArticleData('DRAFT');
+        }
+
+        function saveArticleData(targetStatus) {
+            const articles = getStoredArticles();
+            const id = document.getElementById('editor-article-id').value || `art-${Date.now()}`;
+            const htmlContent = editorCanvas.innerHTML;
+            
+            const newArt = {
+                id: id,
+                title: document.getElementById('editor-title').value,
+                category: document.getElementById('editor-category').value,
+                status: targetStatus,
+                date: new Date().toISOString().split('T')[0],
+                author: 'Priyanshu Dhyani',
+                image: document.getElementById('editor-image-url').value,
+                excerpt: document.getElementById('editor-excerpt').value,
+                content: htmlContent,
+                seoTitle: document.getElementById('editor-seo-title').value,
+                metaDesc: document.getElementById('editor-meta-desc').value,
+                slug: document.getElementById('editor-slug').value
+            };
+
+            const existingIdx = articles.findIndex(a => a.id === id);
+            if (existingIdx >= 0) {
+                articles[existingIdx] = newArt;
+            } else {
+                articles.unshift(newArt);
+            }
+
+            saveStoredArticles(articles);
+            closeArticleEditor();
+            showToast(targetStatus === 'PUBLISHED' ? "ARTICLE PUBLISHED SUCCESSFULLY" : "DRAFT SAVED");
+        }
+
+        function previewArticle() {
+            const tempArt = {
+                title: document.getElementById('editor-title').value || 'Untitled Preview',
+                category: document.getElementById('editor-category').value,
+                date: new Date().toISOString().split('T')[0],
+                author: 'Priyanshu Dhyani',
+                image: document.getElementById('editor-image-url').value,
+                content: editorCanvas.innerHTML || '<p>No content provided.</p>'
+            };
+            
+            document.getElementById('article-view-category').innerText = tempArt.category;
+            document.getElementById('article-view-title').innerText = tempArt.title;
+            document.getElementById('article-view-date').innerText = tempArt.date;
+            document.getElementById('article-view-image').src = tempArt.image || '';
+            document.getElementById('article-view-content').innerHTML = tempArt.content;
+            
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+
+        // --- INITIAL RENDER ON PAGE LOAD ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPublicBlog();
+        });
+    </script>
+</body>
+</html>

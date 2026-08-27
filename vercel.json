@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/articles",
+      "dest": "/api/articles.js"
+    },
+    {
+      "src": "/api/articles/(.*)",
+      "dest": "/api/articles.js?id=$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

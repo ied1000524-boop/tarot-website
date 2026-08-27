@@ -1,125 +1,126 @@
-const fs = require('fs');
-const path = require('path');
+const CLOUD_DB_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0440daa513a1c';
 
-const DB_FILE = path.join(__dirname, '..', 'articles.json');
-
-function getArticles() {
-    try {
-        if (fs.existsSync(DB_FILE)) {
-            const data = fs.readFileSync(DB_FILE, 'utf-8');
-            return JSON.parse(data);
-        }
-    } catch (e) {
-        console.error('Error reading articles.json in serverless function:', e);
-    }
-    return [];
+async function fetchFromCloud() {
+    const res = await fetch(CLOUD_DB_URL, {
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+    });
+    if (!res.ok) throw new Error('Cloud DB fetch failed: ' + res.status);
+    const json = await res.json();
+    return (json.data && Array.isArray(json.data.articles)) ? json.data.articles : [];
 }
 
-function saveArticles(articles) {
-    try {
-        fs.writeFileSync(DB_FILE, JSON.stringify(articles, null, 2), 'utf-8');
-        return true;
-    } catch (e) {
-        console.error('Error saving articles.json in serverless function:', e);
-        return false;
-    }
+async function saveToCloud(articles) {
+    const body = {
+        name: "Mystical Tarot Blog Articles",
+        data: { articles: articles }
+    };
+    const res = await fetch(CLOUD_DB_URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate'
+        },
+        body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('Cloud DB save failed: ' + res.status);
+    return true;
 }
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
     if (req.method === 'OPTIONS') {
-        res.status(204).end();
-        return;
+        return res.status(204).end();
     }
 
-    const { status } = req.query || {};
+    try {
+        const { status, id } = req.query || {};
 
-    if (req.method === 'GET') {
-        let articles = getArticles();
-        if (status) {
-            articles = articles.filter(a => a.status === status);
-        }
-        res.status(200).json(articles);
-        return;
-    }
-
-    if (req.method === 'POST') {
-        const data = req.body || {};
-        let articles = getArticles();
-
-        const newArticle = {
-            id: data.id || `art-${Date.now()}`,
-            title: data.title || 'Untitled Article',
-            slug: data.slug || `article-${Date.now()}`,
-            category: data.category || 'General Insights',
-            featured_image: data.featured_image || data.image || '',
-            excerpt: data.excerpt || '',
-            content: data.content || '',
-            author: 'Priyanshu Dhyani',
-            status: data.status || 'DRAFT',
-            publication_date: data.publication_date || data.date || new Date().toISOString().split('T')[0],
-            published_at: data.published_at || (data.status === 'PUBLISHED' ? new Date().toISOString() : null),
-            created_at: data.created_at || new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            updated_date: new Date().toISOString().split('T')[0],
-            seo_title: data.seo_title || data.seoTitle || '',
-            meta_description: data.meta_description || data.metaDesc || '',
-            featured: Boolean(data.featured)
-        };
-
-        const idx = articles.findIndex(a => a.id === newArticle.id);
-        if (idx >= 0) {
-            articles[idx] = { ...articles[idx], ...newArticle, updated_at: new Date().toISOString() };
-        } else {
-            articles.unshift(newArticle);
-        }
-
-        saveArticles(articles);
-        res.status(200).json({ success: true, article: newArticle });
-        return;
-    }
-
-    if (req.method === 'PUT') {
-        const id = req.query.id || (req.body && req.body.id);
-        let articles = getArticles();
-        const idx = articles.findIndex(a => a.id === id);
-
-        if (idx >= 0) {
-            articles[idx] = {
-                ...articles[idx],
-                ...req.body,
-                updated_at: new Date().toISOString(),
-                updated_date: new Date().toISOString().split('T')[0]
-            };
-            if (req.body && req.body.status === 'PUBLISHED' && !articles[idx].published_at) {
-                articles[idx].published_at = new Date().toISOString();
+        if (req.method === 'GET') {
+            const articles = await fetchFromCloud();
+            if (status) {
+                const filtered = articles.filter(a => a.status === status);
+                return res.status(200).json(filtered);
             }
-            saveArticles(articles);
-            res.status(200).json({ success: true, article: articles[idx] });
-        } else {
-            res.status(404).json({ error: 'Article not found' });
+            return res.status(200).json(articles);
         }
-        return;
-    }
 
-    if (req.method === 'DELETE') {
-        const id = req.query.id || (req.body && req.body.id);
-        let articles = getArticles();
-        const initialLen = articles.length;
-        articles = articles.filter(a => a.id !== id);
+        if (req.method === 'POST') {
+            const data = req.body || {};
+            const articles = await fetchFromCloud();
+            const todayStr = new Date().toISOString().split('T')[0];
 
-        if (articles.length < initialLen) {
-            saveArticles(articles);
-            res.status(200).json({ success: true, message: 'Article deleted' });
-        } else {
-            res.status(404).json({ error: 'Article not found' });
+            const newArticle = {
+                id: data.id || `art-${Date.now()}`,
+                title: data.title || 'Untitled Article',
+                slug: data.slug || `article-${Date.now()}`,
+                category: data.category || 'General Insights',
+                featured_image: data.featured_image || data.image || '',
+                excerpt: data.excerpt || '',
+                content: data.content || '',
+                author: 'Priyanshu Dhyani',
+                status: data.status || 'DRAFT',
+                published_at: data.status === 'PUBLISHED' ? todayStr : (data.published_at || ''),
+                created_at: data.created_at || todayStr,
+                updated_at: todayStr,
+                seo_title: data.seo_title || data.seoTitle || '',
+                meta_description: data.meta_description || data.metaDesc || '',
+                is_featured: Boolean(data.is_featured || data.featured)
+            };
+
+            const idx = articles.findIndex(a => a.id === newArticle.id);
+            if (idx >= 0) {
+                articles[idx] = { ...articles[idx], ...newArticle, updated_at: todayStr };
+            } else {
+                articles.unshift(newArticle);
+            }
+
+            await saveToCloud(articles);
+            return res.status(200).json({ success: true, article: newArticle });
         }
-        return;
-    }
 
-    res.status(405).json({ error: 'Method not allowed' });
+        if (req.method === 'PUT') {
+            const targetId = id || (req.body && req.body.id);
+            const articles = await fetchFromCloud();
+            const idx = articles.findIndex(a => a.id === targetId);
+
+            if (idx >= 0) {
+                const todayStr = new Date().toISOString().split('T')[0];
+                articles[idx] = {
+                    ...articles[idx],
+                    ...req.body,
+                    updated_at: todayStr
+                };
+                if (req.body.status === 'PUBLISHED' && !articles[idx].published_at) {
+                    articles[idx].published_at = todayStr;
+                }
+                await saveToCloud(articles);
+                return res.status(200).json({ success: true, article: articles[idx] });
+            } else {
+                return res.status(404).json({ error: 'Article not found' });
+            }
+        }
+
+        if (req.method === 'DELETE') {
+            const targetId = id || (req.body && req.body.id);
+            let articles = await fetchFromCloud();
+            const initialLen = articles.length;
+            articles = articles.filter(a => a.id !== targetId);
+
+            if (articles.length < initialLen) {
+                await saveToCloud(articles);
+                return res.status(200).json({ success: true, message: 'Article deleted permanently' });
+            } else {
+                return res.status(404).json({ error: 'Article not found' });
+            }
+        }
+
+        return res.status(405).json({ error: 'Method not allowed' });
+    } catch (err) {
+        console.error('API Error:', err);
+        return res.status(500).json({ error: 'Database operation failed', details: err.message });
+    }
 };

@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
 const DB_FILE = path.join(__dirname, 'articles.json');
 
-// Initialize empty persistent database file if it does not exist
+// Initialize empty persistent database file ONLY if it does not exist
 if (!fs.existsSync(DB_FILE)) {
     fs.writeFileSync(DB_FILE, JSON.stringify([]), 'utf-8');
 }
@@ -24,12 +24,14 @@ const MIME_TYPES = {
 
 function readArticlesFromDb() {
     try {
-        const data = fs.readFileSync(DB_FILE, 'utf-8');
-        return JSON.parse(data);
+        if (fs.existsSync(DB_FILE)) {
+            const data = fs.readFileSync(DB_FILE, 'utf-8');
+            return JSON.parse(data);
+        }
     } catch (err) {
         console.error('Error reading articles database:', err);
-        return [];
     }
+    return [];
 }
 
 function writeArticlesToDb(articles) {
@@ -43,7 +45,7 @@ function writeArticlesToDb(articles) {
 }
 
 const server = http.createServer((req, res) => {
-    // CORS & No-Cache Headers for API
+    // Strict CORS & Cache-Control Headers to prevent stale device data
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -59,6 +61,8 @@ const server = http.createServer((req, res) => {
     // ==================== CENTRAL REST API ROUTES ====================
     if (pathname.startsWith('/api/articles')) {
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
         res.setHeader('Content-Type', 'application/json');
 
         // GET /api/articles or /api/articles?status=PUBLISHED
@@ -85,9 +89,12 @@ const server = http.createServer((req, res) => {
                 try { data = JSON.parse(body); } catch (e) {}
             }
 
-            // POST /api/articles (Create Article)
+            // POST /api/articles (Create/Publish Article)
             if (req.method === 'POST' && pathname === '/api/articles') {
                 const articles = readArticlesFromDb();
+                const now = new Date().toISOString();
+                const todayStr = now.split('T')[0];
+
                 const newArticle = {
                     id: data.id || `art-${Date.now()}`,
                     title: data.title || 'Untitled Article',
@@ -98,24 +105,31 @@ const server = http.createServer((req, res) => {
                     content: data.content || '',
                     author: 'Priyanshu Dhyani',
                     status: data.status || 'DRAFT',
-                    publication_date: data.publication_date || data.date || new Date().toISOString().split('T')[0],
-                    updated_date: new Date().toISOString().split('T')[0],
+                    publication_date: data.publication_date || data.date || todayStr,
+                    published_at: data.published_at || (data.status === 'PUBLISHED' ? now : null),
+                    created_at: data.created_at || now,
+                    updated_at: now,
+                    updated_date: todayStr,
                     seo_title: data.seo_title || data.seoTitle || '',
                     meta_description: data.meta_description || data.metaDesc || '',
                     featured: Boolean(data.featured)
                 };
 
-                // Check if updating existing by id
                 const idx = articles.findIndex(a => a.id === newArticle.id);
                 if (idx >= 0) {
-                    articles[idx] = { ...articles[idx], ...newArticle };
+                    articles[idx] = { ...articles[idx], ...newArticle, updated_at: now };
                 } else {
                     articles.unshift(newArticle);
                 }
 
-                writeArticlesToDb(articles);
-                res.writeHead(200);
-                return res.end(JSON.stringify({ success: true, article: newArticle }));
+                const success = writeArticlesToDb(articles);
+                if (success) {
+                    res.writeHead(200);
+                    return res.end(JSON.stringify({ success: true, article: newArticle }));
+                } else {
+                    res.writeHead(500);
+                    return res.end(JSON.stringify({ error: 'Failed to persist article to central database' }));
+                }
             }
 
             // PUT /api/articles/:id (Update Article)
@@ -125,10 +139,24 @@ const server = http.createServer((req, res) => {
                 const idx = articles.findIndex(a => a.id === id);
 
                 if (idx >= 0) {
-                    articles[idx] = { ...articles[idx], ...data, updated_date: new Date().toISOString().split('T')[0] };
-                    writeArticlesToDb(articles);
-                    res.writeHead(200);
-                    return res.end(JSON.stringify({ success: true, article: articles[idx] }));
+                    const now = new Date().toISOString();
+                    articles[idx] = {
+                        ...articles[idx],
+                        ...data,
+                        updated_at: now,
+                        updated_date: now.split('T')[0]
+                    };
+                    if (data.status === 'PUBLISHED' && !articles[idx].published_at) {
+                        articles[idx].published_at = now;
+                    }
+                    const success = writeArticlesToDb(articles);
+                    if (success) {
+                        res.writeHead(200);
+                        return res.end(JSON.stringify({ success: true, article: articles[idx] }));
+                    } else {
+                        res.writeHead(500);
+                        return res.end(JSON.stringify({ error: 'Failed to update central database' }));
+                    }
                 } else {
                     res.writeHead(404);
                     return res.end(JSON.stringify({ error: 'Article not found' }));
@@ -143,9 +171,14 @@ const server = http.createServer((req, res) => {
                 articles = articles.filter(a => a.id !== id);
 
                 if (articles.length < initialLen) {
-                    writeArticlesToDb(articles);
-                    res.writeHead(200);
-                    return res.end(JSON.stringify({ success: true, message: 'Article deleted' }));
+                    const success = writeArticlesToDb(articles);
+                    if (success) {
+                        res.writeHead(200);
+                        return res.end(JSON.stringify({ success: true, message: 'Article deleted permanently' }));
+                    } else {
+                        res.writeHead(500);
+                        return res.end(JSON.stringify({ error: 'Failed to update database on deletion' }));
+                    }
                 } else {
                     res.writeHead(404);
                     return res.end(JSON.stringify({ error: 'Article not found' }));
@@ -167,7 +200,6 @@ const server = http.createServer((req, res) => {
 
     const filePath = path.join(PUBLIC_DIR, decodedUrl);
 
-    // Prevent directory traversal attacks
     if (!filePath.startsWith(PUBLIC_DIR)) {
         res.writeHead(403, { 'Content-Type': 'text/plain' });
         return res.end('403 Forbidden');
